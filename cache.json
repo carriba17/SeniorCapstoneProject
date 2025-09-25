@@ -1,0 +1,18 @@
+{
+  "program": {
+    "candyMachine": "",
+    "candyGuard": "",
+    "candyMachineCreator": "",
+    "collectionMint": ""
+  },
+  "items": {
+    "0": {
+      "name": "Capstone Shirt #1",
+      "image_hash": "5017ff090a8f46d82348060220bc73f4523d27b7c046f365f9c7502d34e1af3d",
+      "image_link": "https://gateway.irys.xyz/ANBUDD44r8d6VP7ZkDZgvq6MkmmVFzrYd2zdB66AtHPr?ext=png",
+      "metadata_hash": "f5658340113d3a95416f2b98b948b99541e02d0bb9d05443d973df714e0da411",
+      "metadata_link": "https://gateway.irys.xyz/8yxKZkf5SmdhxZJ34Kz63qVfwBv76crUMF2jSB9N8D1i",
+      "onChain": false
+    }
+  }
+}

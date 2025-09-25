@@ -1,0 +1,22 @@
+{
+  "price": 0.0,
+  "number": 1,
+  "symbol": "SUNSOL",
+  "sellerFeeBasisPoints": 500,
+  "creators": [
+    {
+      "address": "2p6kE7UWscZ6FTF6ZnWfeSa7JRdKrDDPX3Aoc7F5rGmW",
+      "share": 100
+    }
+  ],
+  "isMutable": true,
+  "retainAuthority": true,
+  "uploadMethod": "bundlr",
+  "isSequential": true,
+  "ruleSet": null,
+  "awsConfig": null,
+  "nftStorageAuthToken": null,
+  "shdwStorageAccount": null,
+  "hiddenSettings": null,
+  "guards": null
+}

@@ -1,0 +1,20 @@
+{
+  "name": "Capstone Shirt #1",
+  "symbol": "SUNSOL",
+  "description": "A limited-edition Capstone NFT shirt for testing.",
+  "seller_fee_basis_points": 500,
+  "image": "0.png",
+  "attributes": [
+    { "trait_type": "Color", "value": "Red" },
+    { "trait_type": "Size", "value": "Medium" }
+  ],
+  "properties": {
+    "files": [
+      {
+        "uri": "0.png",
+        "type": "image/png"
+      }
+    ],
+    "category": "image"
+  }
+}
