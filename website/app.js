@@ -23,12 +23,33 @@ async function connectWallet() {
   }
 }
 
-connectButton.addEventListener("click", connectWallet);
+
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    document.getElementById("loading-screen").style.display = "none";
+    document.getElementById("main-content").style.display = "block";
+  }, 4000); // 4 seconds
+});
+
+// Car follows mouse
+const carIcon = document.getElementById("car-icon");
+document.addEventListener("mousemove", (e) => {
+  if (carIcon) {
+    carIcon.style.left = e.pageX + "px";
+    carIcon.style.top = e.pageY + "px";
+  }
+});
+
+
+n.addEventListener("click", connectWallet);
 
 // Placeholder functions for mint/burn
 mintButton.addEventListener("click", () => {
   alert("Minting not yet wired to Candy Machine. This is the next step.");
-});
+}
+);
 burnButton.addEventListener("click", () => {
   alert("Burn function not yet implemented. Will integrate with program.");
-});
+}
+)
+;

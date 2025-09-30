@@ -1,6 +1,8 @@
 <!-- Carter Arribas -->
 <!-- This is the basic shell for the html coding-->
  <!--CRCP -->
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,17 +10,42 @@
   <title>Capstone NFT Mint</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <header>
-    <h1>Capstone NFT T-Shirts</h1>
-    <p>Mint a shirt NFT or burn it to claim your physical version.</p>
-  </header>
 
-  <main>
-    <button id="connect-wallet">Connect Wallet</button>
-    <button id="mint-nft" disabled>Mint NFT</button>
-    <button id="burn-nft" disabled>Burn NFT</button>
-  </main>
+
+<body>
+
+  <!-- Loading Screen -->
+  <div id="loading-screen">
+    <img src="assets/Car.png" alt="Loading Car" class="loading-img">
+    <div class="loading-text">Loading...</div>
+  </div>
+
+  <!-- Main Content (hidden at first) -->
+<div id="main-content" style="display:none;">
+
+      <!-- Navigation Bar -->
+      <nav id="navbar">
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Mint</a></li>
+          <li><a href="#">Burn</a></li>
+          <li><a href="#">About</a></li>
+        </ul>
+      </nav>
+
+        <!-- Track with car -->
+        <div id="track">
+          <img src="assets/track.png" alt="Racetrack" class="track-img">
+          <img src="assets/car.png" alt="Car Icon" id="car-icon">
+        </div>
+</div>
+
+    <main>
+      <button id="connect-wallet">Connect Wallet</button>
+      <button id="mint-nft" disabled>Mint NFT</button>
+      <button id="burn-nft" disabled>Burn NFT</button>
+    </main>
+  </div>
 
   <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js"></script>
   <script src="app.js"></script>
