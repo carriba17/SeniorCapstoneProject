@@ -4,6 +4,8 @@
 const connectButton = document.getElementById("connect-wallet");
 const mintButton = document.getElementById("mint-nft");
 const burnButton = document.getElementById("burn-nft");
+const CANDY_MACHINE_ID = new web3.PublicKey("YOUR_CANDY_MACHINE_ID_HERE");
+
 
 let provider = null;
 
