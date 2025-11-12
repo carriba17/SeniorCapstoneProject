@@ -7,38 +7,48 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Capstone NFT Mint</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Adaptive Apparel</title>
+  <link rel="stylesheet" href="./CSS/style.css" />
+  <link rel="stylesheet" href="./CSS/trackStyle.css" />
+  <script src="./track.js" defer></script>
+
 </head>
 
 
 <body>
 
-  <!-- Loading Screen -->
-  <div id="loading-screen">
-    <img src="assets/Car.png" alt="Loading Car" class="loading-img">
-    <div class="loading-text">Loading...</div>
+  <!-- Navigation Bar -->
+  <nav id="navbar">
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Mint</a></li>
+      <li><a href="#">Burn</a></li>
+      <li><a href="#">About</a></li>
+    </ul>
+  </nav>
+
+  <!-- Landing Page with Droplets Animation -->
+  <section id="landing-page">
+    <!-- Droplets GIF Background -->
+    <div id="droplets-background">
+      <img src="assets/Droplets.gif" alt="Droplets Animation" id="droplets-gif">
+    </div>
+    
+    <!-- Overlay Container for PNG (e.g., "Adaptive apparel" text) -->
+    <!-- To add your PNG overlay, uncomment and update the img tag below: -->
+    <div id="landing-overlay">
+      <!-- <img src="assets/adaptive-apparel.png" alt="Adaptive Apparel" id="overlay-image"> -->
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <div id="main-content">
+    <!-- Track with car -->
+    <div id="track">
+      <!-- <img src="assets/track.png" alt="Racetrack" class="track-img"> -->
+      <img src="assets/car.png" alt="Car Icon" id="car-icon">
+    </div>
   </div>
-
-  <!-- Main Content (hidden at first) -->
-<div id="main-content" style="display:none;">
-
-      <!-- Navigation Bar -->
-      <nav id="navbar">
-        <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Mint</a></li>
-          <li><a href="#">Burn</a></li>
-          <li><a href="#">About</a></li>
-        </ul>
-      </nav>
-
-        <!-- Track with car -->
-        <div id="track">
-          <img src="assets/track.png" alt="Racetrack" class="track-img">
-          <img src="assets/car.png" alt="Car Icon" id="car-icon">
-        </div>
-</div>
 
     <main>
       <button id="connect-wallet">Connect Wallet</button>
@@ -46,6 +56,31 @@
       <button id="burn-nft" disabled>Burn NFT</button>
     </main>
   </div>
+
+<!-- Pixel Race Track Section -->
+<section id="pixel-track" class="section-track">
+  <div class="wrap">
+    <h2 class="track-title">Unlock by Winning</h2>
+
+    <div id="trackStage" class="track-stage prestart">
+      
+      <!-- Keep the canvas tiny for crisp pixel upscaling -->
+      <canvas id="trackCanvas" width="192" height="192" aria-label="Retro pixel racetrack"></canvas>
+
+      <!-- Centered start button hovering over the middle -->
+      <button id="startRace" class="start-btn" type="button">START</button>
+
+      <!-- Optional status text (off-track, ready, etc.) -->
+      <div id="trackStatus" class="status" aria-live="polite"></div>
+    </div>
+
+    <div class="track-controls">
+      <button id="resetTrack" type="button">Reset</button>
+    </div>
+  </div>
+</section>
+
+
 
   <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js"></script>
   <script src="app.js"></script>

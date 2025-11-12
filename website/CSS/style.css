@@ -1,35 +1,77 @@
 /* Carter Arribas */
 /* CSS styling for the basics of the website */
 
-/* Loading Screen */
-#loading-screen {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: #000;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
+/* Rem refers to Root styling in px for linear alignment*/
+
+/* Landing Page with Droplets Animation */
+#landing-page {
+  position: relative;
+  width: 100%;
+  height: 60vh; /* Adjust height as needed */
+  margin-top: 60px; /* Space for navbar */
+  overflow: hidden;
+  z-index: 1;
 }
 
-/* Main content centered */
-#main-content {
+/* Droplets GIF Background */
+#droplets-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
-  flex-direction: column;     /* stack header + buttons */
-  justify-content: center;    /* vertical center */
-  align-items: center;        /* horizontal center */
-  min-height: 100vh;          /* full height of screen */
-  text-align: center;         /* center text inside header */
+  justify-content: center;
+  align-items: center;
+  background: #000;
+}
+
+#droplets-gif {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Ensure the GIF loops continuously */
+  animation: none; /* Remove any CSS animations that might interfere */
+}
+
+/* Overlay Container for PNG (e.g., "Adaptive apparel" text) */
+#landing-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  /* Allow clicks to pass through to elements below if needed */
+  pointer-events: none;
+}
+
+/* Style for overlay image when you add it */
+#landing-overlay img {
+  max-width: 80%;
+  max-height: 80%;
+  object-fit: contain;
+  /* Make the overlay image clickable if needed */
+  pointer-events: auto;
+}
+
+/* Main content */
+#main-content {
+  position: relative;
+  width: 100%;
+  z-index: 1;
 }
 
 /* Buttons styling */
 #main-content button {
+  border-radius: 8px;
+
   margin: 1rem;
   padding: 1rem 2rem;
   font-size: 1.2rem;
-  border-radius: 8px;
   border: none;
   cursor: pointer;
 }
@@ -88,13 +130,6 @@
   text-decoration: underline;
 }
 
-/* Fullscreen track */
-#track {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-}
 
 .track-img {
   width: 100%;

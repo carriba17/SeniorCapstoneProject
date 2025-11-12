@@ -4,7 +4,7 @@
 const connectButton = document.getElementById("connect-wallet");
 const mintButton = document.getElementById("mint-nft");
 const burnButton = document.getElementById("burn-nft");
-const CANDY_MACHINE_ID = new web3.PublicKey("YOUR_CANDY_MACHINE_ID_HERE");
+// const CANDY_MACHINE_ID = new web3.PublicKey("YOUR_CANDY_MACHINE_ID_HERE");
 
 
 let provider = null;
@@ -20,18 +20,11 @@ async function connectWallet() {
     } catch (err) {
       console.error("Wallet connection failed", err);
     }
-  } else {
+  } 
+  else {
     alert("Phantom wallet not found! Install it first.");
   }
 }
-
-
-window.addEventListener("load", () => {
-  setTimeout(() => {
-    document.getElementById("loading-screen").style.display = "none";
-    document.getElementById("main-content").style.display = "block";
-  }, 4000); // 4 seconds
-});
 
 // Car follows mouse
 const carIcon = document.getElementById("car-icon");
@@ -43,15 +36,20 @@ document.addEventListener("mousemove", (e) => {
 });
 
 
-n.addEventListener("click", connectWallet);
+// Connect wallet button event listener
+if (connectButton) {
+  connectButton.addEventListener("click", connectWallet);
+}
 
 // Placeholder functions for mint/burn
-mintButton.addEventListener("click", () => {
-  alert("Minting not yet wired to Candy Machine. This is the next step.");
+if (mintButton) {
+  mintButton.addEventListener("click", () => {
+    alert("Minting not yet wired to Candy Machine. This is the next step.");
+  });
 }
-);
-burnButton.addEventListener("click", () => {
-  alert("Burn function not yet implemented. Will integrate with program.");
+
+if (burnButton) {
+  burnButton.addEventListener("click", () => {
+    alert("Burn function not yet implemented. Will integrate with program.");
+  });
 }
-)
-;

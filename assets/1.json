@@ -1,12 +1,12 @@
 {
-  "name": "Capstone Shirt #0",
+  "name": "Capstone Shirt #1",
   "symbol": "CRCPSHRT",
   "description": "A limited-edition Capstone NFT shirt for testing.",
   "seller_fee_basis_points": 500,
-  "image": "0.png",
+  "image": "1.png",
   "attributes": [
     { "trait_type": "Color", "value": "Black" },
-    { "trait_type": "Size", "value": "Medium" }
+    { "trait_type": "Size", "value": "Large" }
   ],
   "properties": {
     "files": [

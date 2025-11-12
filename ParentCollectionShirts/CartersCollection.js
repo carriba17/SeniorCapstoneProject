@@ -1,8 +1,6 @@
 //Carter Arribas
 //Uploading Json and Minting
 
-
-
 const { Connection, clusterApiUrl, Keypair } = require('@solana/web3.js');
 const { Metaplex, keypairIdentity } = require('@metaplex-foundation/js');
 const fs = require('fs');
@@ -31,7 +29,7 @@ const path = require('path');
 
   // Mint the COLLECTION NFT
   const { nft } = await mx.nfts().create({
-    name: 'CRCP Showcase CRCP',
+    name: 'CRCP Showcase Shirts',
     symbol: 'CRCPSHRT',
     uri,
     sellerFeeBasisPoints: 500,
