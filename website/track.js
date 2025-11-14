@@ -68,6 +68,9 @@ function onMove(evt) {
     isRunning = false;
     stageEl.classList.add('offtrack');
     statusEl.textContent = 'Off track! Click Reset.';
+    
+    // Dispatch event to stop car icon tracking when going off track
+    document.dispatchEvent(new CustomEvent('raceStopped'));
   }
 }
 
@@ -80,6 +83,9 @@ function startRace() {
   stageEl.classList.remove('prestart', 'offtrack');
   startBtn.style.display = 'none';
   window.addEventListener('mousemove', onMove, { passive: true });
+  
+  // Dispatch event to start car icon tracking
+  document.dispatchEvent(new CustomEvent('raceStarted'));
 }
 
 // Reset: redraw the track image, re-apply haze, show START again
@@ -96,6 +102,9 @@ function resetRace() {
   ctx.clearRect(0, 0, W, H);
   ctx.drawImage(img, 0, 0, W, H);
   window.removeEventListener('mousemove', onMove);
+  
+  // Dispatch event to stop car icon tracking
+  document.dispatchEvent(new CustomEvent('raceStopped'));
 }
 
 if (startBtn) startBtn.addEventListener('click', startRace);

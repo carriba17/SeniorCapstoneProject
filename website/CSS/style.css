@@ -3,59 +3,310 @@
 
 /* Rem refers to Root styling in px for linear alignment*/
 
-/* Landing Page with Droplets Animation */
+/* Base Styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #000;
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Landing Page */
 #landing-page {
   position: relative;
   width: 100%;
-  height: 60vh; /* Adjust height as needed */
-  margin-top: 60px; /* Space for navbar */
-  overflow: hidden;
+  min-height: 90vh;
+  margin-top: 80px;
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0f0f0f 100%);
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
   z-index: 1;
-}
-
-/* Droplets GIF Background */
-#droplets-background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
   display: flex;
-  justify-content: center;
   align-items: center;
-  background: #000;
 }
 
-#droplets-gif {
+.landing-container {
+  max-width: 1400px;
+  margin: 0 auto;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  /* Ensure the GIF loops continuously */
-  animation: none; /* Remove any CSS animations that might interfere */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
 }
 
-/* Overlay Container for PNG (e.g., "Adaptive apparel" text) */
-#landing-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+/* Left Section */
+.landing-left {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.tag-badge {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, #2a2a2a 0%, #3a3a3a 100%);
+  border: 1px solid #4a4a4a;
+  border-radius: 20px;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 500;
+  width: fit-content;
+}
+
+.main-headline {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.1;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.description {
+  font-size: 1.2rem;
+  color: #cccccc;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 90%;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.cta-primary {
+  padding: 1rem 2.5rem;
+  background: linear-gradient(135deg, #4a4a4a 0%, #2a2a2a 100%);
+  border: 1px solid #6a6a6a;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cta-primary:hover {
+  background: linear-gradient(135deg, #5a5a5a 0%, #3a3a3a 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+}
+
+.cta-secondary {
+  padding: 1rem 2.5rem;
+  background: transparent;
+  border: 2px solid #4a4a4a;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cta-secondary:hover {
+  border-color: #6a6a6a;
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateY(-2px);
+}
+
+.stats-container {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.stat-box {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1.5rem;
+  min-width: 120px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: #aaaaaa;
+  font-weight: 500;
+}
+
+/* Right Section */
+.landing-right {
+  position: relative;
+  height: 600px;
+  display: flex;
   align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+.merch-card {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  padding: 2rem;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.merch-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+.merch-card-3d:hover {
+  transform: translate(-50%, -50%) translateY(-10px);
+}
+
+.merch-card-1 {
+  left: 0;
+  top: 10%;
   z-index: 2;
-  /* Allow clicks to pass through to elements below if needed */
-  pointer-events: none;
+  width: 280px;
+  height: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Style for overlay image when you add it */
-#landing-overlay img {
-  max-width: 80%;
-  max-height: 80%;
+.merch-card-2 {
+  right: 0;
+  bottom: 10%;
+  z-index: 1;
+  width: 280px;
+  height: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: none;
+}
+
+.merch-card-2:hover {
+  transform: translateY(-10px);
+}
+
+.merch-card-3d {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  width: 400px;
+  height: 500px;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  will-change: transform;
+}
+
+.merch-card-3d:active {
+  cursor: grabbing;
+}
+
+#hoodie-3d-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+#hoodie-3d-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: 12px;
+}
+
+.viewer-hint {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.7);
+  color: #cccccc;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  pointer-events: none;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.merch-image {
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
-  /* Make the overlay image clickable if needed */
-  pointer-events: auto;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .landing-container {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  
+  .landing-right {
+    height: 500px;
+  }
+  
+  .main-headline {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-headline {
+    font-size: 2rem;
+  }
+  
+  .description {
+    font-size: 1rem;
+  }
+  
+  .cta-buttons {
+    flex-direction: column;
+  }
+  
+  .stats-container {
+    flex-wrap: wrap;
+  }
+  
+  .merch-card-1,
+  .merch-card-2 {
+    width: 200px;
+    height: 250px;
+  }
+  
+  .merch-card-3d {
+    width: 300px;
+    height: 400px;
+  }
 }
 
 /* Main content */
@@ -102,9 +353,47 @@
   top: 0;
   left: 0;
   width: 100%;
-  background: black;
-  padding: 1rem;
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1rem 2rem;
   z-index: 2000;
+}
+
+.nav-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.logo-icon {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #4a4a4a 0%, #2a2a2a 100%);
+  border: 1px solid #6a6a6a;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 800;
+  font-size: 1.2rem;
+  letter-spacing: -0.02em;
+}
+
+.logo-text {
+  color: #fff;
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
 }
 
 #navbar ul {
@@ -112,22 +401,27 @@
   padding: 0;
   display: flex;
   justify-content: center;
+  align-items: center;
   list-style: none;
+  gap: 2rem;
 }
 
 #navbar li {
-  margin: 0 1.5rem;
+  margin: 0;
 }
 
 #navbar a {
-  color: white;
+  color: #cccccc;
   text-decoration: none;
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-family: Arial, sans-serif;
+  font-weight: 500;
+  transition: color 0.3s ease;
+  padding: 0.5rem 0;
 }
 
 #navbar a:hover {
-  text-decoration: underline;
+  color: #fff;
 }
 
 

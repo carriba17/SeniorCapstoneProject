@@ -26,14 +26,58 @@ async function connectWallet() {
   }
 }
 
-// Car follows mouse
+// Car follows mouse - only when race is active
 const carIcon = document.getElementById("car-icon");
-document.addEventListener("mousemove", (e) => {
-  if (carIcon) {
-    carIcon.style.left = e.pageX + "px";
-    carIcon.style.top = e.pageY + "px";
+let isCarTracking = false;
+let lastMouseX = 0;
+let lastMouseY = 0;
+
+// Function to handle car icon mouse tracking
+function handleCarTracking(e) {
+  if (carIcon && isCarTracking) {
+    // Use clientX/clientY (viewport coordinates) instead of pageX/pageY to avoid scroll offset issues
+    lastMouseX = e.clientX;
+    lastMouseY = e.clientY;
+    carIcon.style.left = e.clientX + "px";
+    carIcon.style.top = e.clientY + "px";
   }
+}
+
+// Track mouse position even when not tracking (to know where to position car when starting)
+document.addEventListener("mousemove", (e) => {
+  lastMouseX = e.clientX;
+  lastMouseY = e.clientY;
 });
+
+// Start car icon tracking
+function startCarTracking() {
+  if (carIcon) {
+    isCarTracking = true;
+    carIcon.style.display = "block";
+    // Immediately position car at current mouse location
+    carIcon.style.left = lastMouseX + "px";
+    carIcon.style.top = lastMouseY + "px";
+    document.addEventListener("mousemove", handleCarTracking);
+  }
+}
+
+// Stop car icon tracking
+function stopCarTracking() {
+  if (carIcon) {
+    isCarTracking = false;
+    carIcon.style.display = "none";
+    document.removeEventListener("mousemove", handleCarTracking);
+  }
+}
+
+// Initialize car icon as hidden
+if (carIcon) {
+  carIcon.style.display = "none";
+}
+
+// Listen for custom events from track.js
+document.addEventListener("raceStarted", startCarTracking);
+document.addEventListener("raceStopped", stopCarTracking);
 
 
 // Connect wallet button event listener

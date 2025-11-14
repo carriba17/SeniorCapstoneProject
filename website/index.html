@@ -19,25 +19,64 @@
 
   <!-- Navigation Bar -->
   <nav id="navbar">
-    <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">Mint</a></li>
-      <li><a href="#">Burn</a></li>
-      <li><a href="#">About</a></li>
-    </ul>
+    <div class="nav-container">
+      <div class="logo">
+        <span class="logo-icon">AA</span>
+        <span class="logo-text">Photoshopbyc.art</span>
+      </div>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Catalogue</a></li>
+        <li><a href="#">Mint</a></li>
+        <li><a href="#">Burn</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+    </div>
   </nav>
 
-  <!-- Landing Page with Droplets Animation -->
+  <!-- Landing Page -->
   <section id="landing-page">
-    <!-- Droplets GIF Background -->
-    <div id="droplets-background">
-      <img src="assets/Droplets.gif" alt="Droplets Animation" id="droplets-gif">
-    </div>
-    
-    <!-- Overlay Container for PNG (e.g., "Adaptive apparel" text) -->
-    <!-- To add your PNG overlay, uncomment and update the img tag below: -->
-    <div id="landing-overlay">
-      <!-- <img src="assets/adaptive-apparel.png" alt="Adaptive Apparel" id="overlay-image"> -->
+    <div class="landing-container">
+      <!-- Left Section: Content -->
+      <div class="landing-left">
+        <div class="tag-badge">Web3 Apparel</div>
+        <h1 class="main-headline">Digital World -> Physical Item </h1>
+        <p class="description">From hoodies to premium swag, we create high-quality merchandise that makes your brand stand out with cutting-edge adaptive technology.</p>
+        
+        <div class="cta-buttons">
+          <button class="cta-primary">Get Started</button>
+          <button class="cta-secondary">View Catalogue</button>
+        </div>
+        
+        <div class="stats-container">
+          <div class="stat-box">
+            <div class="stat-number">30+</div>
+            <div class="stat-label">Happy Clients</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number">200+</div>
+            <div class="stat-label">Orders Delivered</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Quality Assured</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Right Section: Merchandise Display -->
+      <div class="landing-right">
+        <!-- 3D Interactive Hoodie Viewer -->
+        <div class="merch-card merch-card-3d">
+          <div id="hoodie-3d-container">
+            <canvas id="hoodie-3d-canvas"></canvas>
+            <div class="viewer-hint">Drag to rotate • Scroll to zoom</div>
+          </div>
+        </div>
+        <div class="merch-card merch-card-2">
+          <img src="assets/Car.png" alt="Racing Apparel" class="merch-image">
+        </div>
+      </div>
     </div>
   </section>
 
@@ -83,6 +122,25 @@
 
 
   <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+  <script type="module">
+    // Import GLTFLoader using import map
+    import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+    // Make it available globally
+    window.GLTFLoader = GLTFLoader;
+    // Signal that GLTFLoader is ready
+    window.GLTFLoaderReady = true;
+    console.log('GLTFLoader loaded and ready');
+  </script>
+  <script src="hoodie-3d.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
