@@ -29,7 +29,7 @@ function init3DHoodie() {
 
   // Scene setup
   scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x4a4a4a); // Dark gray background
+  scene.background = null; // Transparent background to show video/GIF behind
 
   // Camera setup
   const width = container.clientWidth;
@@ -116,65 +116,165 @@ function createHoodie() {
     model.traverse((child) => {
       if (child.isMesh) {
         meshes.push(child);
+        // Log mesh info for debugging
+        console.log(`Mesh found: ${child.name}, Material: ${child.material ? (Array.isArray(child.material) ? 'Array[' + child.material.length + ']' : child.material.type) : 'None'}`);
       }
     });
     
     console.log(`Found ${meshes.length} meshes in model`);
     
-    // Find meshes and apply textures
-    // Try to identify front and back by name, position, or material
-    meshes.forEach((mesh, index) => {
-      const meshName = mesh.name.toLowerCase();
-      const worldPosition = new THREE.Vector3();
-      mesh.getWorldPosition(worldPosition);
-      
-      // Get bounding box to determine orientation
-      const box = new THREE.Box3().setFromObject(mesh);
-      const center = box.getCenter(new THREE.Vector3());
-      
-      let applied = false;
-      
-      // Check by name first
-      if (meshName.includes('front') || meshName.includes('chest') || meshName.includes('frontpanel')) {
-        if (frontTexture) {
-          console.log(`Applying front texture to mesh ${index}: ${mesh.name}`);
-          applyTextureToMesh(mesh, frontTexture);
-          applied = true;
-        }
-      } else if (meshName.includes('back') || meshName.includes('backpanel')) {
-        if (backTexture) {
-          console.log(`Applying back texture to mesh ${index}: ${mesh.name}`);
-          applyTextureToMesh(mesh, backTexture);
-          applied = true;
-        }
+    if (meshes.length === 0) {
+      console.warn('No meshes found in model!');
+      return;
+    }
+    
+    // If we only have 1-2 meshes, apply textures directly
+    if (meshes.length <= 2) {
+      console.log('Few meshes detected, applying textures directly...');
+      if (meshes[0] && frontTexture) {
+        console.log(`Applying front texture to first mesh: ${meshes[0].name}`);
+        applyTextureToMesh(meshes[0], frontTexture);
       }
-      
-      // If not identified by name, try by position (front = positive Z, back = negative Z)
-      if (!applied) {
-        if (center.z > 0.05 && frontTexture) {
-          console.log(`Applying front texture to mesh ${index} (by position): ${mesh.name}, z=${center.z.toFixed(2)}`);
-          applyTextureToMesh(mesh, frontTexture);
-        } else if (center.z < -0.05 && backTexture) {
-          console.log(`Applying back texture to mesh ${index} (by position): ${mesh.name}, z=${center.z.toFixed(2)}`);
-          applyTextureToMesh(mesh, backTexture);
-        }
+      if (meshes[1] && backTexture) {
+        console.log(`Applying back texture to second mesh: ${meshes[1].name}`);
+        applyTextureToMesh(meshes[1], backTexture);
+      } else if (meshes[0] && backTexture && !frontTexture) {
+        // If only back texture, apply to first mesh
+        console.log(`Applying back texture to first mesh: ${meshes[0].name}`);
+        applyTextureToMesh(meshes[0], backTexture);
       }
-    });
+    } else {
+      // Multiple meshes - try to identify front and back
+      const sortedMeshes = [...meshes].sort((a, b) => {
+        const boxA = new THREE.Box3().setFromObject(a);
+        const boxB = new THREE.Box3().setFromObject(b);
+        const sizeA = boxA.getSize(new THREE.Vector3());
+        const sizeB = boxB.getSize(new THREE.Vector3());
+        return (sizeB.x * sizeB.y * sizeB.z) - (sizeA.x * sizeA.y * sizeA.z);
+      });
+      
+      meshes.forEach((mesh, index) => {
+        const meshName = mesh.name.toLowerCase();
+        
+        // Get bounding box to determine orientation
+        const box = new THREE.Box3().setFromObject(mesh);
+        const center = box.getCenter(new THREE.Vector3());
+        
+        // Get world position
+        const worldPos = new THREE.Vector3();
+        mesh.getWorldPosition(worldPos);
+        
+        let applied = false;
+        
+        // Check by name first
+        if (meshName.includes('front') || meshName.includes('chest') || meshName.includes('frontpanel') || meshName.includes('body_front') || meshName.includes('front_')) {
+          if (frontTexture) {
+            console.log(`Applying front texture to mesh ${index}: ${mesh.name}`);
+            applyTextureToMesh(mesh, frontTexture);
+            applied = true;
+          }
+        } else if (meshName.includes('back') || meshName.includes('backpanel') || meshName.includes('body_back') || meshName.includes('back_')) {
+          if (backTexture) {
+            console.log(`Applying back texture to mesh ${index}: ${mesh.name}`);
+            applyTextureToMesh(mesh, backTexture);
+            applied = true;
+          }
+        }
+        
+        // If not identified by name, try by position (front = positive Z, back = negative Z)
+        if (!applied) {
+          // Check both local center and world position
+          const checkZ = Math.abs(center.z) > 0.01 ? center.z : worldPos.z;
+          
+          if (checkZ > 0.01 && frontTexture) {
+            console.log(`Applying front texture to mesh ${index} (by position): ${mesh.name}, z=${checkZ.toFixed(2)}`);
+            applyTextureToMesh(mesh, frontTexture);
+            applied = true;
+          } else if (checkZ < -0.01 && backTexture) {
+            console.log(`Applying back texture to mesh ${index} (by position): ${mesh.name}, z=${checkZ.toFixed(2)}`);
+            applyTextureToMesh(mesh, backTexture);
+            applied = true;
+          }
+        }
+        
+        // If still not applied, use size-based approach
+        if (!applied) {
+          if (mesh === sortedMeshes[0] && frontTexture) {
+            console.log(`Applying front texture to largest mesh: ${mesh.name}`);
+            applyTextureToMesh(mesh, frontTexture);
+          } else if (mesh === sortedMeshes[1] && backTexture) {
+            console.log(`Applying back texture to second largest mesh: ${mesh.name}`);
+            applyTextureToMesh(mesh, backTexture);
+          } else if (mesh === sortedMeshes[0] && backTexture && !frontTexture) {
+            // If only back texture, apply to largest
+            console.log(`Applying back texture to largest mesh: ${mesh.name}`);
+            applyTextureToMesh(mesh, backTexture);
+          }
+        }
+      });
+    }
   }
   
   function applyTextureToMesh(mesh, texture) {
-    if (mesh.material) {
-      if (Array.isArray(mesh.material)) {
-        mesh.material.forEach(mat => {
-          if (mat && mat.isMeshStandardMaterial) {
-            mat.map = texture;
-            mat.needsUpdate = true;
-          }
-        });
-      } else if (mesh.material.isMeshStandardMaterial) {
-        mesh.material.map = texture;
-        mesh.material.needsUpdate = true;
+    if (!mesh.material) {
+      console.warn(`Mesh ${mesh.name} has no material, creating new material...`);
+      mesh.material = new THREE.MeshStandardMaterial({
+        map: texture,
+        roughness: 0.8,
+        metalness: 0.1
+      });
+      return;
+    }
+    
+    // Handle both single material and material arrays
+    const materials = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+    let materialUpdated = false;
+    
+    materials.forEach((mat, matIndex) => {
+      if (!mat) return;
+      
+      // Clone material if needed to avoid affecting other meshes
+      let materialToUpdate = mat;
+      if (!mat.userData.isCustom) {
+        materialToUpdate = mat.clone();
+        materialToUpdate.userData.isCustom = true;
+        if (Array.isArray(mesh.material)) {
+          mesh.material[matIndex] = materialToUpdate;
+        } else {
+          mesh.material = materialToUpdate;
+        }
       }
+      
+      // Apply texture - try multiple material types
+      if (materialToUpdate.isMeshStandardMaterial || 
+          materialToUpdate.isMeshPhysicalMaterial || 
+          materialToUpdate.isMeshLambertMaterial ||
+          materialToUpdate.isMeshPhongMaterial ||
+          materialToUpdate.isMeshBasicMaterial) {
+        materialToUpdate.map = texture;
+        materialToUpdate.needsUpdate = true;
+        materialUpdated = true;
+        console.log(`✓ Texture applied to material ${matIndex} (${materialToUpdate.type}) of mesh ${mesh.name}`);
+      } else {
+        // If material type doesn't support map, replace it
+        console.log(`Material type ${materialToUpdate.type} doesn't support map, replacing with MeshStandardMaterial...`);
+        const newMaterial = new THREE.MeshStandardMaterial({
+          map: texture,
+          roughness: 0.8,
+          metalness: 0.1
+        });
+        if (Array.isArray(mesh.material)) {
+          mesh.material[matIndex] = newMaterial;
+        } else {
+          mesh.material = newMaterial;
+        }
+        materialUpdated = true;
+        console.log(`✓ Material replaced and texture applied to mesh ${mesh.name}`);
+      }
+    });
+    
+    if (!materialUpdated) {
+      console.warn(`Failed to apply texture to mesh ${mesh.name}`);
     }
   }
   
@@ -182,17 +282,26 @@ function createHoodie() {
   textureLoader.load(
     './assets/hoodie-front.png',
     (texture) => {
-      console.log('Front texture loaded');
+      console.log('Front texture loaded successfully');
+      // Configure texture for best quality
       texture.flipY = false;
+      texture.wrapS = THREE.RepeatWrapping;
+      texture.wrapT = THREE.RepeatWrapping;
+      texture.minFilter = THREE.LinearMipmapLinearFilter;
+      texture.magFilter = THREE.LinearFilter;
+      texture.generateMipmaps = true;
       texture.needsUpdate = true;
       frontTexture = texture;
       texturesLoaded++;
+      console.log(`Front texture dimensions: ${texture.image.width}x${texture.image.height}`);
       if (hoodie) {
+        console.log('Hoodie already loaded, applying front texture...');
         applyTexturesToModel(hoodie);
       }
     },
     undefined,
     (error) => {
+      console.error('Error loading front texture:', error);
       console.log('Front texture not found, using model texture');
       texturesLoaded++;
     }
@@ -202,17 +311,26 @@ function createHoodie() {
   textureLoader.load(
     './assets/hoodie-back.png',
     (texture) => {
-      console.log('Back texture loaded');
+      console.log('Back texture loaded successfully');
+      // Configure texture for best quality
       texture.flipY = false;
+      texture.wrapS = THREE.RepeatWrapping;
+      texture.wrapT = THREE.RepeatWrapping;
+      texture.minFilter = THREE.LinearMipmapLinearFilter;
+      texture.magFilter = THREE.LinearFilter;
+      texture.generateMipmaps = true;
       texture.needsUpdate = true;
       backTexture = texture;
       texturesLoaded++;
+      console.log(`Back texture dimensions: ${texture.image.width}x${texture.image.height}`);
       if (hoodie) {
+        console.log('Hoodie already loaded, applying back texture...');
         applyTexturesToModel(hoodie);
       }
     },
     undefined,
     (error) => {
+      console.error('Error loading back texture:', error);
       console.log('Back texture not found, using model texture');
       texturesLoaded++;
     }
@@ -310,9 +428,6 @@ function setupControls() {
   canvas.addEventListener('touchstart', onTouchStart);
   canvas.addEventListener('touchmove', onTouchMove);
   canvas.addEventListener('touchend', onTouchEnd);
-
-  // Zoom with scroll
-  canvas.addEventListener('wheel', onWheel);
 }
 
 function onMouseDown(event) {
@@ -327,13 +442,9 @@ function onMouseMove(event) {
   if (!isDragging || !hoodie) return;
 
   const deltaX = event.clientX - previousMousePosition.x;
-  const deltaY = event.clientY - previousMousePosition.y;
-
+  
+  // Only allow horizontal rotation (left/right swipe)
   hoodie.rotation.y += deltaX * 0.01;
-  hoodie.rotation.x += deltaY * 0.01;
-
-  // Limit vertical rotation
-  hoodie.rotation.x = Math.max(-Math.PI / 3, Math.min(Math.PI / 3, hoodie.rotation.x));
 
   previousMousePosition = {
     x: event.clientX,
@@ -360,12 +471,9 @@ function onTouchMove(event) {
   event.preventDefault();
 
   const deltaX = event.touches[0].clientX - previousMousePosition.x;
-  const deltaY = event.touches[0].clientY - previousMousePosition.y;
-
+  
+  // Only allow horizontal rotation (left/right swipe)
   hoodie.rotation.y += deltaX * 0.01;
-  hoodie.rotation.x += deltaY * 0.01;
-
-  hoodie.rotation.x = Math.max(-Math.PI / 3, Math.min(Math.PI / 3, hoodie.rotation.x));
 
   previousMousePosition = {
     x: event.touches[0].clientX,
@@ -375,12 +483,6 @@ function onTouchMove(event) {
 
 function onTouchEnd() {
   isDragging = false;
-}
-
-function onWheel(event) {
-  event.preventDefault();
-  const delta = event.deltaY * 0.001;
-  camera.position.z = Math.max(3, Math.min(8, camera.position.z + delta));
 }
 
 function onWindowResize() {

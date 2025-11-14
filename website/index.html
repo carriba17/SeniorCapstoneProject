@@ -7,7 +7,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Adaptive Apparel</title>
+  <title>C.Art</title>
   <link rel="stylesheet" href="./CSS/style.css" />
   <link rel="stylesheet" href="./CSS/trackStyle.css" />
   <script src="./track.js" defer></script>
@@ -17,28 +17,69 @@
 
 <body>
 
-  <!-- Navigation Bar -->
-  <nav id="navbar">
-    <div class="nav-container">
-      <div class="logo">
-        <span class="logo-icon">AA</span>
-        <span class="logo-text">Photoshopbyc.art</span>
-      </div>
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Catalogue</a></li>
-        <li><a href="#">Mint</a></li>
-        <li><a href="#">Burn</a></li>
-        <li><a href="#">About</a></li>
-      </ul>
-    </div>
+  <!-- Navigation Bar - Left Side -->
+  <nav id="navbar-left">
+    <ul class="nav-left-menu">
+      <li><a href="#">home</a></li>
+      <li><a href="#">catalogue</a></li>
+      <li><a href="#">mint</a></li>
+      <li><a href="#">burn</a></li>
+      <li><a href="#">about</a></li>
+    </ul>
   </nav>
 
-  <!-- Landing Page -->
+  <!-- Logo - Top Right -->
+  <div id="top-logo">
+    <img src="assets/PhotoShopByCart.png" alt="C.Art" class="logo-img-top">
+  </div>
+
+  <!-- Landing Page - Just Hoodie -->
   <section id="landing-page">
-    <div class="landing-container">
-      <!-- Left Section: Content -->
-      <div class="landing-left">
+    <!-- Background Video - Only covers landing page -->
+    <video id="background-video" autoplay muted loop playsinline preload="auto" webkit-playsinline>
+      <source src="assets/background.mp4" type="video/mp4">
+    </video>
+    <!-- Background GIF Overlay - Only covers landing page -->
+    <div id="background-gif-overlay"></div>
+    <div class="landing-container-hoodie">
+      <!-- 3D Interactive Hoodie Viewer - Transparent Background -->
+      <div class="merch-card merch-card-3d transparent-bg">
+        <div id="hoodie-3d-container">
+          <canvas id="hoodie-3d-canvas"></canvas>
+            <div class="viewer-hint">Swipe left/right to rotate</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section id="stats-section">
+    <div class="stats-section-container">
+      <div class="stats-text-content">
+        <h2 class="stats-headline">The Launch was the largest, fairest NFT sale ever</h2>
+        <p class="stats-description">The Launch was a success, and most importantly it was fair. Funds, foundations, angels and community members across the crypto ecosystem paid the same price with the same terms to become members. After 14 days and four sale waves, the Launch now stands as the largest single NFT sale ever.</p>
+      </div>
+      <div class="stats-cards-container">
+        <div class="stat-card stat-card-1">
+          <div class="stat-card-label">Total sales</div>
+          <div class="stat-card-value">$67.7M</div>
+        </div>
+        <div class="stat-card stat-card-2">
+          <div class="stat-card-label">Days of sale</div>
+          <div class="stat-card-value">14 <span class="stat-value-small">days</span></div>
+        </div>
+        <div class="stat-card stat-card-3">
+          <div class="stat-card-label">Patrons sold</div>
+          <div class="stat-card-value">43,244 <span class="stat-value-small">patrons</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Explanation Section - Moved Down -->
+  <section id="explanation-section">
+    <div class="explanation-container">
+      <div class="explanation-content">
         <div class="tag-badge">Web3 Apparel</div>
         <h1 class="main-headline">Digital World -> Physical Item </h1>
         <p class="description">From hoodies to premium swag, we create high-quality merchandise that makes your brand stand out with cutting-edge adaptive technology.</p>
@@ -47,34 +88,72 @@
           <button class="cta-primary">Get Started</button>
           <button class="cta-secondary">View Catalogue</button>
         </div>
-        
-        <div class="stats-container">
-          <div class="stat-box">
-            <div class="stat-number">30+</div>
-            <div class="stat-label">Happy Clients</div>
-          </div>
-          <div class="stat-box">
-            <div class="stat-number">200+</div>
-            <div class="stat-label">Orders Delivered</div>
-          </div>
-          <div class="stat-box">
-            <div class="stat-number">100%</div>
-            <div class="stat-label">Quality Assured</div>
-          </div>
-        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Roadmap Section -->
+  <section id="roadmap-section">
+    <div class="roadmap-container">
+      <div class="roadmap-header">
+        <h2 class="roadmap-title">How to Get Your Physical Product</h2>
+        <p class="roadmap-subtitle">Follow these steps to unlock exclusive apparel and join our community</p>
       </div>
       
-      <!-- Right Section: Merchandise Display -->
-      <div class="landing-right">
-        <!-- 3D Interactive Hoodie Viewer -->
-        <div class="merch-card merch-card-3d">
-          <div id="hoodie-3d-container">
-            <canvas id="hoodie-3d-canvas"></canvas>
-            <div class="viewer-hint">Drag to rotate • Scroll to zoom</div>
+      <div class="roadmap-path">
+        <!-- Phase 1 -->
+        <div class="phase phase-1">
+          <div class="phase-pin pin-1">
+            <div class="pin-icon">🌐</div>
+          </div>
+          <div class="phase-content">
+            <h3 class="phase-title">PHASE 1</h3>
+            <p class="phase-description">Launch the website and introduce the project</p>
           </div>
         </div>
-        <div class="merch-card merch-card-2">
-          <img src="assets/Car.png" alt="Racing Apparel" class="merch-image">
+
+        <!-- Phase 2 -->
+        <div class="phase phase-2">
+          <div class="phase-pin pin-2">
+            <div class="pin-icon">🎫</div>
+          </div>
+          <div class="phase-content">
+            <h3 class="phase-title">PHASE 2</h3>
+            <p class="phase-description">Free minting and authentication on Discord</p>
+          </div>
+        </div>
+
+        <!-- Phase 3 -->
+        <div class="phase phase-3">
+          <div class="phase-pin pin-3">
+            <div class="pin-icon">👑</div>
+          </div>
+          <div class="phase-content">
+            <h3 class="phase-title">PHASE 3</h3>
+            <p class="phase-description">Create and optimize the VIP community</p>
+          </div>
+        </div>
+
+        <!-- Phase 4 -->
+        <div class="phase phase-4">
+          <div class="phase-pin pin-4">
+            <div class="pin-icon">📚</div>
+          </div>
+          <div class="phase-content">
+            <h3 class="phase-title">PHASE 4</h3>
+            <p class="phase-description">Develop educational content and host webinars</p>
+          </div>
+        </div>
+
+        <!-- Phase 5 -->
+        <div class="phase phase-5">
+          <div class="phase-pin pin-5">
+            <div class="pin-icon">🎁</div>
+          </div>
+          <div class="phase-content">
+            <h3 class="phase-title">PHASE 5</h3>
+            <p class="phase-description">Offer exclusive rewards and hold raffles for members</p>
+          </div>
         </div>
       </div>
     </div>
@@ -82,42 +161,12 @@
 
   <!-- Main Content -->
   <div id="main-content">
-    <!-- Track with car -->
-    <div id="track">
-      <!-- <img src="assets/track.png" alt="Racetrack" class="track-img"> -->
-      <img src="assets/car.png" alt="Car Icon" id="car-icon">
-    </div>
-  </div>
-
     <main>
       <button id="connect-wallet">Connect Wallet</button>
       <button id="mint-nft" disabled>Mint NFT</button>
       <button id="burn-nft" disabled>Burn NFT</button>
     </main>
   </div>
-
-<!-- Pixel Race Track Section -->
-<section id="pixel-track" class="section-track">
-  <div class="wrap">
-    <h2 class="track-title">Unlock by Winning</h2>
-
-    <div id="trackStage" class="track-stage prestart">
-      
-      <!-- Keep the canvas tiny for crisp pixel upscaling -->
-      <canvas id="trackCanvas" width="192" height="192" aria-label="Retro pixel racetrack"></canvas>
-
-      <!-- Centered start button hovering over the middle -->
-      <button id="startRace" class="start-btn" type="button">START</button>
-
-      <!-- Optional status text (off-track, ready, etc.) -->
-      <div id="trackStatus" class="status" aria-live="polite"></div>
-    </div>
-
-    <div class="track-controls">
-      <button id="resetTrack" type="button">Reset</button>
-    </div>
-  </div>
-</section>
 
 
 

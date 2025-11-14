@@ -15,23 +15,117 @@ body {
   color: #fff;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
   overflow-x: hidden;
+  position: relative;
+}
+
+/* Background Video - Only covers landing page */
+#background-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+  opacity: 0.9;
+  /* Maximum video quality settings */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  /* Force hardware acceleration for better quality */
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  -o-transform: translateZ(0);
+  /* Better rendering quality */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Prevent pixelation */
+  image-rendering: auto;
+  -ms-interpolation-mode: bicubic;
+  /* Optimize for quality over performance */
+  filter: contrast(1.05) brightness(1.02);
+}
+
+/* Background GIF Overlay - Only covers landing page */
+#background-gif-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('./assets/Droplets.gif');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 0;
+  opacity: 0.4;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+/* Left Navigation */
+#navbar-left {
+  position: fixed;
+  top: 50%;
+  left: 2rem;
+  transform: translateY(-50%);
+  z-index: 1000;
+}
+
+.nav-left-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.nav-left-menu li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 400;
+  text-transform: lowercase;
+  transition: opacity 0.3s ease;
+  display: block;
+}
+
+.nav-left-menu li a:hover {
+  opacity: 0.7;
+}
+
+/* Top Right Logo */
+#top-logo {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  z-index: 1000;
+}
+
+.logo-img-top {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(1.1);
 }
 
 /* Landing Page */
 #landing-page {
   position: relative;
   width: 100%;
-  min-height: 90vh;
-  margin-top: 80px;
+  min-height: 100vh;
   padding: 4rem 2rem;
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0f0f0f 100%);
-  background-image: 
-    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 50px 50px;
+  background: transparent;
   z-index: 1;
   display: flex;
   align-items: center;
+  backdrop-filter: blur(0px);
+  overflow: hidden;
 }
 
 .landing-container {
@@ -44,11 +138,25 @@ body {
   align-items: center;
 }
 
+.landing-container-hoodie {
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  position: relative;
+  z-index: 2;
+}
+
 /* Left Section */
 .landing-left {
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  position: relative;
+  z-index: 10;
 }
 
 .tag-badge {
@@ -159,6 +267,7 @@ body {
   align-items: center;
   justify-content: center;
   overflow: visible;
+  z-index: 10;
 }
 
 .merch-card {
@@ -223,6 +332,20 @@ body {
   will-change: transform;
 }
 
+.transparent-bg {
+  background: rgba(50, 50, 50, 0.6) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+}
+
+.transparent-bg:hover {
+  transform: translate(-50%, -50%) translateY(-10px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  background: rgba(50, 50, 50, 0.7) !important;
+}
+
 .merch-card-3d:active {
   cursor: grabbing;
 }
@@ -233,6 +356,7 @@ body {
   position: relative;
   border-radius: 12px;
   overflow: hidden;
+  background: transparent;
 }
 
 #hoodie-3d-canvas {
@@ -278,6 +402,20 @@ body {
   .main-headline {
     font-size: 2.5rem;
   }
+
+  .stats-section-container {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+
+  .stats-cards-container {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .stats-headline {
+    font-size: 2.5rem;
+  }
 }
 
 @media (max-width: 768px) {
@@ -307,13 +445,51 @@ body {
     width: 300px;
     height: 400px;
   }
+
+  #stats-section {
+    padding: 4rem 2rem;
+  }
+
+  .stats-section-container {
+    gap: 3rem;
+  }
+
+  .stats-headline {
+    font-size: 2rem;
+  }
+
+  .stats-description {
+    font-size: 1rem;
+  }
+
+  .stats-cards-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .stat-card {
+    width: 100%;
+    max-width: 300px;
+    transform: none !important;
+  }
+
+  .stat-card:hover {
+    transform: translateY(-5px) scale(1.02) !important;
+  }
+
+  #explanation-section {
+    padding: 4rem 2rem;
+  }
 }
 
 /* Main content */
 #main-content {
   position: relative;
   width: 100%;
-  z-index: 1;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  padding: 2rem;
 }
 
 /* Buttons styling */
@@ -347,17 +523,9 @@ body {
   100% { transform: translateX(200px); opacity: 0; }
 }
 
-/* Navbar styles */
+/* Navbar styles - Hidden, using left nav instead */
 #navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: rgba(0, 0, 0, 0.95);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 1rem 2rem;
-  z-index: 2000;
+  display: none;
 }
 
 .nav-container {
@@ -377,16 +545,8 @@ body {
 .logo-icon {
   width: 40px;
   height: 40px;
-  background: linear-gradient(135deg, #4a4a4a 0%, #2a2a2a 100%);
-  border: 1px solid #6a6a6a;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-weight: 800;
-  font-size: 1.2rem;
-  letter-spacing: -0.02em;
+  object-fit: contain;
+  display: block;
 }
 
 .logo-text {
@@ -439,4 +599,359 @@ body {
   pointer-events: none; /* prevents blocking clicks */
   transform: translate(-50%, -50%); /* center on cursor */
   z-index: 1500;
+}
+
+/* Stats Section */
+#stats-section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  padding: 6rem 4rem;
+  display: flex;
+  align-items: center;
+  z-index: 10;
+}
+
+.stats-section-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: center;
+}
+
+.stats-text-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.stats-headline {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.2;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.stats-description {
+  font-size: 1.1rem;
+  color: #cccccc;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.stats-cards-container {
+  display: flex;
+  gap: 2rem;
+  justify-content: flex-end;
+  align-items: flex-start;
+  perspective: 1000px;
+}
+
+.stat-card {
+  background: rgba(30, 30, 30, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 2.5rem 2rem;
+  min-width: 200px;
+  transform: rotateY(-5deg) rotateX(2deg);
+  transition: transform 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.stat-card-1 {
+  transform: rotateY(-8deg) rotateX(3deg) translateY(0);
+}
+
+.stat-card-2 {
+  transform: rotateY(-4deg) rotateX(1deg) translateY(-10px);
+}
+
+.stat-card-3 {
+  transform: rotateY(0deg) rotateX(-1deg) translateY(-20px);
+}
+
+.stat-card:hover {
+  transform: rotateY(0deg) rotateX(0deg) translateY(-5px) scale(1.05);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
+
+.stat-card-label {
+  font-size: 0.9rem;
+  color: #aaaaaa;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.stat-card-value {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.1;
+}
+
+.stat-value-small {
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+/* Explanation Section */
+#explanation-section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  padding: 6rem 4rem;
+  display: flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  z-index: 10;
+}
+
+.explanation-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.explanation-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 800px;
+}
+
+/* Roadmap Section */
+#roadmap-section {
+  position: relative;
+  width: 100%;
+  padding: 6rem 2rem;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+  z-index: 10;
+}
+
+.roadmap-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.roadmap-header {
+  text-align: center;
+  margin-bottom: 5rem;
+}
+
+.roadmap-title {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 1rem 0;
+  letter-spacing: -0.02em;
+}
+
+.roadmap-subtitle {
+  font-size: 1.2rem;
+  color: #aaaaaa;
+  margin: 0;
+}
+
+.roadmap-path {
+  position: relative;
+  min-height: 800px;
+  padding: 2rem 0;
+}
+
+/* Winding Path Visualization */
+.roadmap-path::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    linear-gradient(to right, 
+      #ff6b35 0%, 
+      #ff6b35 20%,
+      #ff4757 20%,
+      #ff4757 40%,
+      #c44569 40%,
+      #c44569 60%,
+      #6c5ce7 60%,
+      #6c5ce7 80%,
+      #0984e3 80%,
+      #0984e3 100%
+    );
+  background-size: 100% 5px;
+  background-position: 0 50%;
+  background-repeat: no-repeat;
+  opacity: 0.8;
+  z-index: 1;
+  clip-path: polygon(
+    0% 80%,
+    10% 78%,
+    20% 75%,
+    30% 68%,
+    40% 62%,
+    50% 58%,
+    60% 55%,
+    70% 52%,
+    80% 65%,
+    90% 68%,
+    100% 70%
+  );
+  border-radius: 2px;
+}
+
+/* Phase Container */
+.phase {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+}
+
+.phase-content {
+  margin-top: 1rem;
+  text-align: center;
+  max-width: 250px;
+}
+
+.phase-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 0.5rem 0;
+  letter-spacing: 0.1em;
+}
+
+.phase-description {
+  font-size: 0.95rem;
+  color: #cccccc;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Phase Pins */
+.phase-pin {
+  width: 60px;
+  height: 60px;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  position: relative;
+  z-index: 2;
+}
+
+.pin-icon {
+  transform: rotate(45deg);
+  font-size: 1.8rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+/* Phase 1 - Orange */
+.phase-1 {
+  left: 5%;
+  bottom: 10%;
+}
+
+.pin-1 {
+  background: linear-gradient(135deg, #ff6b35 0%, #d63031 100%);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Phase 2 - Pink */
+.phase-2 {
+  left: 25%;
+  bottom: 25%;
+}
+
+.pin-2 {
+  background: linear-gradient(135deg, #ff4757 0%, #c44569 100%);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Phase 3 - Purple-Pink */
+.phase-3 {
+  left: 45%;
+  bottom: 40%;
+}
+
+.pin-3 {
+  background: linear-gradient(135deg, #c44569 0%, #a29bfe 100%);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Phase 4 - Purple */
+.phase-4 {
+  left: 65%;
+  bottom: 55%;
+}
+
+.pin-4 {
+  background: linear-gradient(135deg, #6c5ce7 0%, #5f3dc4 100%);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Phase 5 - Blue */
+.phase-5 {
+  left: 85%;
+  bottom: 70%;
+}
+
+.pin-5 {
+  background: linear-gradient(135deg, #0984e3 0%, #0056b3 100%);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Responsive Design for Roadmap */
+@media (max-width: 1200px) {
+  .roadmap-path {
+    min-height: 1000px;
+  }
+  
+  .phase {
+    position: relative;
+    left: auto !important;
+    bottom: auto !important;
+    margin: 3rem auto;
+  }
+  
+  .roadmap-path::before {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .roadmap-title {
+    font-size: 2rem;
+  }
+  
+  .roadmap-subtitle {
+    font-size: 1rem;
+  }
+  
+  .phase-content {
+    max-width: 200px;
+  }
+  
+  .phase-pin {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .pin-icon {
+    font-size: 1.5rem;
+  }
 }
