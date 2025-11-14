@@ -3,7 +3,7 @@
 
 const connectButton = document.getElementById("connect-wallet");
 const mintButton = document.getElementById("mint-nft");
-const burnButton = document.getElementById("burn-nft");
+const exchangeButton = document.getElementById("exchange-nft");
 // const CANDY_MACHINE_ID = new web3.PublicKey("YOUR_CANDY_MACHINE_ID_HERE");
 
 
@@ -16,7 +16,7 @@ async function connectWallet() {
       console.log("Connected wallet:", resp.publicKey.toString());
       provider = window.solana;
       mintButton.disabled = false;
-      burnButton.disabled = false;
+      exchangeButton.disabled = false;
     } catch (err) {
       console.error("Wallet connection failed", err);
     }
@@ -85,15 +85,69 @@ if (connectButton) {
   connectButton.addEventListener("click", connectWallet);
 }
 
-// Placeholder functions for mint/burn
+// Placeholder functions for mint/exchange
 if (mintButton) {
   mintButton.addEventListener("click", () => {
     alert("Minting not yet wired to Candy Machine. This is the next step.");
   });
 }
 
-if (burnButton) {
-  burnButton.addEventListener("click", () => {
-    alert("Burn function not yet implemented. Will integrate with program.");
+if (exchangeButton) {
+  exchangeButton.addEventListener("click", () => {
+    alert("Exchange function not yet implemented. Will integrate with program.");
   });
 }
+
+// Navbar scroll animation
+const navbar = document.getElementById('navbar-left');
+const logo = document.getElementById('top-logo');
+const scrollThreshold = 50; // Lower threshold - triggers earlier
+
+let lastScrollY = window.scrollY;
+let ticking = false;
+
+function handleScroll() {
+  const currentScrollY = window.scrollY;
+  const isScrollingDown = currentScrollY > lastScrollY;
+  
+  if (currentScrollY > scrollThreshold) {
+    // Scrolled down - move nav to top and show logo
+    navbar?.classList.add('scrolled');
+    logo?.classList.add('visible');
+  } else {
+    // Scrolled back up - return nav to side and hide logo (slower animation)
+    navbar?.classList.remove('scrolled');
+    logo?.classList.remove('visible');
+  }
+  
+  lastScrollY = currentScrollY;
+  ticking = false;
+}
+
+function onScroll() {
+  if (!ticking) {
+    window.requestAnimationFrame(handleScroll);
+    ticking = true;
+  }
+}
+
+// Listen for scroll events
+window.addEventListener('scroll', onScroll, { passive: true });
+
+// Also handle touch events for mobile swipe
+let touchStartY = 0;
+let touchEndY = 0;
+
+document.addEventListener('touchstart', (e) => {
+  touchStartY = e.touches[0].clientY;
+}, { passive: true });
+
+document.addEventListener('touchend', (e) => {
+  touchEndY = e.changedTouches[0].clientY;
+  handleScroll();
+}, { passive: true });
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', () => {
+  handleScroll();
+});

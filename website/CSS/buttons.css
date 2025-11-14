@@ -1,0 +1,13 @@
+/* Carter Arribas */
+/* CSS styling for buttons and car icon */
+
+/* Car icon that follows mouse */
+#car-icon {
+  position: absolute;
+  width: 100px;   /* bigger car size */
+  height: auto;
+  pointer-events: none; /* prevents blocking clicks */
+  transform: translate(-50%, -50%); /* center on cursor */
+  z-index: 1500;
+}
+

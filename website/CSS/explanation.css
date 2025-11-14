@@ -1,0 +1,29 @@
+/* Carter Arribas */
+/* CSS styling for explanation section */
+
+/* Explanation Section */
+#explanation-section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  padding: 6rem 4rem;
+  display: flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  z-index: 10;
+}
+
+.explanation-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.explanation-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 800px;
+}
+

@@ -1,0 +1,164 @@
+/* Carter Arribas */
+/* CSS styling for navigation bar and logo */
+
+/* Left Navigation */
+#navbar-left {
+  position: fixed;
+  top: 50%;
+  left: 2rem;
+  transform: translateY(-50%);
+  z-index: 9999;
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); /* Slower when going back */
+}
+
+#navbar-left.scrolled {
+  top: 4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); /* Faster when scrolling down */
+}
+
+.nav-left-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  transition: flex-direction 0.5s ease, gap 0.5s ease;
+}
+
+#navbar-left.scrolled .nav-left-menu {
+  flex-direction: row;
+  gap: 2.5rem;
+}
+
+/* Staggered animation for nav items when scrolling */
+.nav-left-menu li {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+#navbar-left.scrolled .nav-left-menu li:nth-child(1) {
+  transition-delay: 0.05s;
+}
+
+#navbar-left.scrolled .nav-left-menu li:nth-child(2) {
+  transition-delay: 0.1s;
+}
+
+#navbar-left.scrolled .nav-left-menu li:nth-child(3) {
+  transition-delay: 0.15s;
+}
+
+#navbar-left.scrolled .nav-left-menu li:nth-child(4) {
+  transition-delay: 0.2s;
+}
+
+#navbar-left.scrolled .nav-left-menu li:nth-child(5) {
+  transition-delay: 0.25s;
+}
+
+.nav-left-menu li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 400;
+  text-transform: lowercase;
+  transition: opacity 0.3s ease;
+  display: block;
+  white-space: nowrap;
+}
+
+.nav-left-menu li a:hover {
+  opacity: 0.7;
+}
+
+/* Top Right Logo */
+#top-logo {
+  position: fixed;
+  top: 0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10000;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  pointer-events: none;
+  /* Ensure logo is always on top */
+  mix-blend-mode: normal;
+}
+
+#top-logo.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.logo-img-top {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(1.1) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+  /* Add shadow for better visibility over video */
+  display: block;
+}
+
+/* Navbar styles - Hidden, using left nav instead */
+#navbar {
+  display: none;
+}
+
+.nav-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.logo-icon {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  display: block;
+}
+
+.logo-text {
+  color: #fff;
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+#navbar ul {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  gap: 2rem;
+}
+
+#navbar li {
+  margin: 0;
+}
+
+#navbar a {
+  color: #cccccc;
+  text-decoration: none;
+  font-size: 1rem;
+  font-family: Arial, sans-serif;
+  font-weight: 500;
+  transition: color 0.3s ease;
+  padding: 0.5rem 0;
+}
+
+#navbar a:hover {
+  color: #fff;
+}
+

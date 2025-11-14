@@ -298,12 +298,20 @@ function createHoodie() {
         console.log('Hoodie already loaded, applying front texture...');
         applyTexturesToModel(hoodie);
       }
+      // Check if both textures are loaded
+      if (frontTexture && backTexture) {
+        document.dispatchEvent(new CustomEvent('hoodieTexturesLoaded'));
+      }
     },
     undefined,
     (error) => {
       console.error('Error loading front texture:', error);
       console.log('Front texture not found, using model texture');
       texturesLoaded++;
+      // Dispatch event that textures failed (but continue anyway)
+      if (texturesLoaded >= 2) {
+        document.dispatchEvent(new CustomEvent('hoodieTexturesError'));
+      }
     }
   );
   
@@ -327,12 +335,20 @@ function createHoodie() {
         console.log('Hoodie already loaded, applying back texture...');
         applyTexturesToModel(hoodie);
       }
+      // Check if both textures are loaded
+      if (frontTexture && backTexture) {
+        document.dispatchEvent(new CustomEvent('hoodieTexturesLoaded'));
+      }
     },
     undefined,
     (error) => {
       console.error('Error loading back texture:', error);
       console.log('Back texture not found, using model texture');
       texturesLoaded++;
+      // Dispatch event that textures failed (but continue anyway)
+      if (texturesLoaded >= 2) {
+        document.dispatchEvent(new CustomEvent('hoodieTexturesError'));
+      }
     }
   );
   
@@ -386,6 +402,9 @@ function createHoodie() {
       camera.lookAt(0, 0, 0);
       
       console.log('Hoodie model added to scene. Size:', size, 'Center:', center);
+      
+      // Dispatch event that model is loaded
+      document.dispatchEvent(new CustomEvent('hoodieModelLoaded'));
     },
     (progress) => {
       // Loading progress
@@ -410,6 +429,9 @@ function createHoodie() {
       hoodie = placeholder;
       hoodie.rotation.y = 0.3;
       console.log('Placeholder created');
+      
+      // Dispatch event that model loaded (even if it's a placeholder)
+      document.dispatchEvent(new CustomEvent('hoodieModelLoaded'));
     }
   );
 }

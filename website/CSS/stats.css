@@ -1,0 +1,117 @@
+/* Carter Arribas */
+/* CSS styling for stats section */
+
+/* Stats Section */
+#stats-section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  padding: 6rem 4rem;
+  display: flex;
+  align-items: center;
+  z-index: 10;
+}
+
+.stats-section-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: center;
+}
+
+.stats-text-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.stats-headline {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.2;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.stats-description {
+  font-size: 1.1rem;
+  color: #cccccc;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.stats-cards-container {
+  display: flex;
+  gap: 2rem;
+  justify-content: flex-end;
+  align-items: flex-start;
+  perspective: 1000px;
+}
+
+.stat-card {
+  background: rgba(30, 30, 30, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 2.5rem 2rem;
+  min-width: 200px;
+  transform: rotateY(-5deg) rotateX(2deg);
+  transition: transform 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.stat-card-1 {
+  transform: rotateY(-8deg) rotateX(3deg) translateY(0);
+}
+
+.stat-card-2 {
+  transform: rotateY(-4deg) rotateX(1deg) translateY(-10px);
+}
+
+.stat-card-3 {
+  transform: rotateY(0deg) rotateX(-1deg) translateY(-20px);
+}
+
+.stat-card:hover {
+  transform: rotateY(0deg) rotateX(0deg) translateY(-5px) scale(1.05);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
+
+.stat-card-label {
+  font-size: 0.9rem;
+  color: #aaaaaa;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.stat-card-value {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.1;
+}
+
+.stat-value-small {
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+/* Stats section hyperlinks */
+.stats-link {
+  color: #aaaaaa;
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 255, 255, 0.3);
+  text-underline-offset: 3px;
+  font-size: 0.95em;
+  transition: color 0.3s ease, text-decoration-color 0.3s ease;
+}
+
+.stats-link:hover {
+  color: #fff;
+  text-decoration-color: rgba(255, 255, 255, 0.6);
+}
+

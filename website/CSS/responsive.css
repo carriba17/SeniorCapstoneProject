@@ -1,0 +1,166 @@
+/* Carter Arribas */
+/* CSS styling for responsive design and media queries */
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .landing-container {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  
+  .landing-right {
+    height: 500px;
+  }
+  
+  .main-headline {
+    font-size: 2.5rem;
+  }
+
+  .stats-section-container {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+
+  .stats-cards-container {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .stats-headline {
+    font-size: 2.5rem;
+  }
+  
+  /* Navbar responsive adjustments */
+  #navbar-left.scrolled .nav-left-menu {
+    gap: 2rem;
+  }
+  
+  .roadmap-path {
+    min-height: 1000px;
+  }
+  
+  .phase {
+    position: relative;
+    left: auto !important;
+    bottom: auto !important;
+    margin: 3rem auto;
+  }
+  
+  .roadmap-path::before {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Navbar mobile styles */
+  #navbar-left {
+    left: 1rem;
+  }
+  
+  #navbar-left.scrolled {
+    left: 50%;
+    top: 1rem;
+  }
+  
+  #navbar-left.scrolled .nav-left-menu {
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .nav-left-menu li a {
+    font-size: 1.2rem;
+  }
+  
+  #top-logo {
+    top: 1rem;
+  }
+  
+  .logo-img-top {
+    height: 40px;
+  }
+  
+  .main-headline {
+    font-size: 2rem;
+  }
+  
+  .description {
+    font-size: 1rem;
+  }
+  
+  .cta-buttons {
+    flex-direction: column;
+  }
+  
+  .stats-container {
+    flex-wrap: wrap;
+  }
+  
+  .merch-card-1,
+  .merch-card-2 {
+    width: 200px;
+    height: 250px;
+  }
+  
+  .merch-card-3d {
+    width: 300px;
+    height: 400px;
+  }
+
+  #stats-section {
+    padding: 4rem 2rem;
+  }
+
+  .stats-section-container {
+    gap: 3rem;
+  }
+
+  .stats-headline {
+    font-size: 2rem;
+  }
+
+  .stats-description {
+    font-size: 1rem;
+  }
+
+  .stats-cards-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .stat-card {
+    width: 100%;
+    max-width: 300px;
+    transform: none !important;
+  }
+
+  .stat-card:hover {
+    transform: translateY(-5px) scale(1.02) !important;
+  }
+
+  #explanation-section {
+    padding: 4rem 2rem;
+  }
+  
+  .roadmap-title {
+    font-size: 2rem;
+  }
+  
+  .roadmap-subtitle {
+    font-size: 1rem;
+  }
+  
+  .phase-content {
+    max-width: 200px;
+  }
+  
+  .phase-pin {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .pin-icon {
+    font-size: 1.5rem;
+  }
+}
+

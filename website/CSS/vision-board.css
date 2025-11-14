@@ -1,0 +1,201 @@
+/* Carter Arribas */
+/* CSS styling for vision board section */
+
+/* Vision Board Section */
+#vision-board-section {
+  position: relative;
+  width: 100%;
+  padding: 6rem 2rem;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  z-index: 10;
+}
+
+.vision-board-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.vision-board-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 1.5rem;
+  min-height: 600px;
+}
+
+/* Vision Panel Base Styles */
+.vision-panel {
+  position: relative;
+  background: rgba(30, 30, 30, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.vision-panel:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.vision-number {
+  font-size: 6rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.1);
+  line-height: 1;
+  margin: 0;
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1;
+}
+
+.vision-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  position: relative;
+  z-index: 2;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: auto;
+}
+
+/* Panel 07 - Accent Background */
+.vision-panel-7 {
+  background: rgba(214, 48, 49, 0.3);
+  border-color: rgba(214, 48, 49, 0.5);
+  grid-column: 3 / 5;
+  grid-row: 2;
+}
+
+.vision-panel-7:hover {
+  background: rgba(214, 48, 49, 0.4);
+  border-color: rgba(214, 48, 49, 0.7);
+}
+
+.vision-panel-7 .vision-title {
+  color: #fff;
+}
+
+.vision-panel-7 .vision-number {
+  color: rgba(255, 255, 255, 0.15);
+}
+
+/* Vision Overlay - Shows on Hover */
+.vision-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 10;
+}
+
+.vision-panel:hover .vision-overlay {
+  opacity: 1;
+  visibility: visible;
+}
+
+.vision-content {
+  text-align: center;
+  color: #fff;
+  max-width: 300px;
+}
+
+.vision-content h4 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin: 0 0 1rem 0;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.vision-content p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #cccccc;
+  margin: 0;
+}
+
+/* Panel 7 Overlay - Lighter background */
+.vision-panel-7 .vision-overlay {
+  background: rgba(214, 48, 49, 0.98);
+}
+
+.vision-panel-7 .vision-content h4,
+.vision-panel-7 .vision-content p {
+  color: #fff;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .vision-board-grid {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+  }
+  
+  .vision-panel-7 {
+    grid-column: 1 / 4;
+    grid-row: 3;
+  }
+}
+
+@media (max-width: 768px) {
+  #vision-board-section {
+    padding: 4rem 1.5rem;
+  }
+  
+  .vision-board-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    gap: 1rem;
+    min-height: auto;
+  }
+  
+  .vision-panel {
+    min-height: 200px;
+  }
+  
+  .vision-panel-7 {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  
+  .vision-number {
+    font-size: 4rem;
+  }
+  
+  .vision-title {
+    font-size: 1rem;
+  }
+  
+  .vision-content h4 {
+    font-size: 1.2rem;
+  }
+  
+  .vision-content p {
+    font-size: 0.9rem;
+  }
+}
+

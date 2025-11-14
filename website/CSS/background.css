@@ -1,0 +1,53 @@
+/* Carter Arribas */
+/* CSS styling for background video and GIF overlay */
+
+/* Background Video - Only covers landing page */
+#background-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+  opacity: 0.9;
+  
+  /* Maximum video quality settings */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  /* Force hardware acceleration for better quality */
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  -o-transform: translateZ(0);
+  /* Better rendering quality */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Prevent pixelation */
+  image-rendering: auto;
+  -ms-interpolation-mode: bicubic;
+  /* Optimize for quality over performance */
+  filter: contrast(1.05) brightness(1.02);
+}
+
+/* Background GIF Overlay - Only covers landing page */
+#background-gif-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('./assets/Droplets.gif');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 0;
+  opacity: 0.4;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+

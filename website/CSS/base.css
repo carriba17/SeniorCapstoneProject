@@ -1,0 +1,32 @@
+/* Carter Arribas */
+/* CSS styling for base styles and global resets */
+
+/* Rem refers to Root styling in px for linear alignment*/
+
+/* Base Styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #000;
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Hide main content during loading */
+body.loading > *:not(#loading-screen) {
+  visibility: hidden;
+  opacity: 0;
+}
+
+body:not(.loading) > *:not(#loading-screen) {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
