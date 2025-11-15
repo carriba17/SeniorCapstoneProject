@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Export Hoodie GLB with Textures</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #1a1a1a;
+      color: #fff;
+    }
+    button {
+      padding: 15px 30px;
+      font-size: 16px;
+      background: #2a2a2a;
+      border: 1px solid #fff;
+      border-radius: 8px;
+      color: #fff;
+      cursor: pointer;
+      margin: 10px;
+    }
+    button:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    #status {
+      margin-top: 20px;
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <h1>Export Hoodie GLB with Textures</h1>
+  <button onclick="exportHoodie()">Export GLB with Textures</button>
+  <div id="status">Ready to export...</div>
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+  <script type="module">
+    import * as THREE from 'three';
+    import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+    import { GLTFExporter } from 'three/addons/exporters/GLTFExporter.js';
+    
+    // Make available globally
+    window.THREE = THREE;
+    window.GLTFLoader = GLTFLoader;
+    window.GLTFExporter = GLTFExporter;
+  </script>
+
+  <script>
+    let scene, model, frontTexture, backTexture;
+
+    // Wait for modules to load
+    window.addEventListener('load', () => {
+      if (!window.THREE || !window.GLTFLoader || !window.GLTFExporter) {
+        setTimeout(() => {
+          if (!window.THREE || !window.GLTFLoader || !window.GLTFExporter) {
+            document.getElementById('status').textContent = 'Error: Failed to load Three.js modules. Please refresh the page.';
+          }
+        }, 1000);
+      }
+    });
+
+    // Replicate the exact texture application logic from hoodie-3d.js
+    function applyTexturesToModel(model, frontTexture, backTexture) {
+      if (!frontTexture && !backTexture) {
+        console.log('No custom textures to apply, using model textures');
+        return;
+      }
+      
+      // Collect all meshes
+      const meshes = [];
+      model.traverse((child) => {
+        if (child.isMesh) {
+          meshes.push(child);
+          console.log(`Mesh found: ${child.name}, Material: ${child.material ? (Array.isArray(child.material) ? 'Array[' + child.material.length + ']' : child.material.type) : 'None'}`);
+        }
+      });
+      
+      console.log(`Found ${meshes.length} meshes in model`);
+      
+      if (meshes.length === 0) {
+        console.warn('No meshes found in model!');
+        return;
+      }
+      
+      // If we only have 1-2 meshes, apply textures directly
+      if (meshes.length <= 2) {
+        console.log('Few meshes detected, applying textures directly...');
+        if (meshes[0] && frontTexture) {
+          console.log(`Applying front texture to first mesh: ${meshes[0].name}`);
+          applyTextureToMesh(meshes[0], frontTexture);
+        }
+        if (meshes[1] && backTexture) {
+          console.log(`Applying back texture to second mesh: ${meshes[1].name}`);
+          applyTextureToMesh(meshes[1], backTexture);
+        } else if (meshes[0] && backTexture && !frontTexture) {
+          console.log(`Applying back texture to first mesh: ${meshes[0].name}`);
+          applyTextureToMesh(meshes[0], backTexture);
+        }
+      } else {
+        // Multiple meshes - try to identify front and back
+        const sortedMeshes = [...meshes].sort((a, b) => {
+          const boxA = new window.THREE.Box3().setFromObject(a);
+          const boxB = new window.THREE.Box3().setFromObject(b);
+          const sizeA = boxA.getSize(new window.THREE.Vector3());
+          const sizeB = boxB.getSize(new window.THREE.Vector3());
+          return (sizeB.x * sizeB.y * sizeB.z) - (sizeA.x * sizeA.y * sizeA.z);
+        });
+        
+        meshes.forEach((mesh, index) => {
+          const meshName = mesh.name.toLowerCase();
+          
+          // Get bounding box to determine orientation
+          const box = new window.THREE.Box3().setFromObject(mesh);
+          const center = box.getCenter(new window.THREE.Vector3());
+          
+          // Get world position
+          const worldPos = new window.THREE.Vector3();
+          mesh.getWorldPosition(worldPos);
+          
+          let applied = false;
+          
+          // Check by name first
+          if (meshName.includes('front') || meshName.includes('chest') || meshName.includes('frontpanel') || meshName.includes('body_front') || meshName.includes('front_')) {
+            if (frontTexture) {
+              console.log(`Applying front texture to mesh ${index}: ${mesh.name}`);
+              applyTextureToMesh(mesh, frontTexture);
+              applied = true;
+            }
+          } else if (meshName.includes('back') || meshName.includes('backpanel') || meshName.includes('body_back') || meshName.includes('back_')) {
+            if (backTexture) {
+              console.log(`Applying back texture to mesh ${index}: ${mesh.name}`);
+              applyTextureToMesh(mesh, backTexture);
+              applied = true;
+            }
+          }
+          
+          // If not identified by name, try by position (front = positive Z, back = negative Z)
+          if (!applied) {
+            const checkZ = Math.abs(center.z) > 0.01 ? center.z : worldPos.z;
+            
+            if (checkZ > 0.01 && frontTexture) {
+              console.log(`Applying front texture to mesh ${index} (by position): ${mesh.name}, z=${checkZ.toFixed(2)}`);
+              applyTextureToMesh(mesh, frontTexture);
+              applied = true;
+            } else if (checkZ < -0.01 && backTexture) {
+              console.log(`Applying back texture to mesh ${index} (by position): ${mesh.name}, z=${checkZ.toFixed(2)}`);
+              applyTextureToMesh(mesh, backTexture);
+              applied = true;
+            }
+          }
+          
+          // If still not applied, use size-based approach
+          if (!applied) {
+            if (mesh === sortedMeshes[0] && frontTexture) {
+              console.log(`Applying front texture to largest mesh: ${mesh.name}`);
+              applyTextureToMesh(mesh, frontTexture);
+            } else if (mesh === sortedMeshes[1] && backTexture) {
+              console.log(`Applying back texture to second largest mesh: ${mesh.name}`);
+              applyTextureToMesh(mesh, backTexture);
+            } else if (mesh === sortedMeshes[0] && backTexture && !frontTexture) {
+              console.log(`Applying back texture to largest mesh: ${mesh.name}`);
+              applyTextureToMesh(mesh, backTexture);
+            }
+          }
+        });
+      }
+    }
+
+    function applyTextureToMesh(mesh, texture) {
+      if (!mesh.material) {
+        console.warn(`Mesh ${mesh.name} has no material, creating new material...`);
+        mesh.material = new window.THREE.MeshStandardMaterial({
+          map: texture
+        });
+        return;
+      }
+
+      // Handle both single material and material arrays
+      const materials = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+      let materialUpdated = false;
+
+      materials.forEach((mat, matIndex) => {
+        // Clone material if needed to avoid affecting other meshes
+        let materialToUpdate = mat;
+        
+        if (!mat.userData || !mat.userData.isCustom) {
+          materialToUpdate = mat.clone();
+          materialToUpdate.userData.isCustom = true;
+          if (Array.isArray(mesh.material)) {
+            mesh.material[matIndex] = materialToUpdate;
+          } else {
+            mesh.material = materialToUpdate;
+          }
+        }
+
+        // Apply texture - try multiple material types
+        if (materialToUpdate.isMeshStandardMaterial || 
+            materialToUpdate.isMeshPhysicalMaterial || 
+            materialToUpdate.isMeshLambertMaterial ||
+            materialToUpdate.isMeshPhongMaterial ||
+            materialToUpdate.isMeshBasicMaterial) {
+          materialToUpdate.map = texture;
+          materialToUpdate.needsUpdate = true;
+          materialUpdated = true;
+          console.log(`✓ Texture applied to material ${matIndex} (${materialToUpdate.type}) of mesh ${mesh.name}`);
+        } else {
+          // If material type doesn't support map, replace it
+          console.log(`Material type ${materialToUpdate.type} doesn't support map, replacing with MeshStandardMaterial...`);
+          const newMaterial = new window.THREE.MeshStandardMaterial({
+            map: texture,
+            color: materialToUpdate.color || 0xffffff
+          });
+          if (Array.isArray(mesh.material)) {
+            mesh.material[matIndex] = newMaterial;
+          } else {
+            mesh.material = newMaterial;
+          }
+          materialUpdated = true;
+          console.log(`✓ Material replaced and texture applied to mesh ${mesh.name}`);
+        }
+      });
+
+      if (!materialUpdated) {
+        console.warn(`Failed to apply texture to mesh ${mesh.name}`);
+      }
+    }
+
+    async function exportHoodie() {
+      if (!window.THREE || !window.GLTFLoader || !window.GLTFExporter) {
+        document.getElementById('status').textContent = 'Error: Three.js modules not loaded. Please refresh the page.';
+        return;
+      }
+      const statusDiv = document.getElementById('status');
+      statusDiv.textContent = 'Loading model and textures...';
+
+      try {
+        // Create scene
+        scene = new window.THREE.Scene();
+
+        // Load textures with same settings as website
+        const textureLoader = new window.THREE.TextureLoader();
+        
+        statusDiv.textContent = 'Loading front texture...';
+        frontTexture = await new Promise((resolve, reject) => {
+          textureLoader.load(
+            './assets/hoodie-front.png',
+            (texture) => {
+              texture.flipY = false;
+              texture.wrapS = window.THREE.RepeatWrapping;
+              texture.wrapT = window.THREE.RepeatWrapping;
+              texture.minFilter = window.THREE.LinearMipmapLinearFilter;
+              texture.magFilter = window.THREE.LinearFilter;
+              texture.generateMipmaps = true;
+              texture.needsUpdate = true;
+              console.log(`Front texture dimensions: ${texture.image.width}x${texture.image.height}`);
+              resolve(texture);
+            },
+            undefined,
+            reject
+          );
+        });
+
+        statusDiv.textContent = 'Front texture loaded. Loading back texture...';
+        backTexture = await new Promise((resolve, reject) => {
+          textureLoader.load(
+            './assets/hoodie-back.png',
+            (texture) => {
+              texture.flipY = false;
+              texture.wrapS = window.THREE.RepeatWrapping;
+              texture.wrapT = window.THREE.RepeatWrapping;
+              texture.minFilter = window.THREE.LinearMipmapLinearFilter;
+              texture.magFilter = window.THREE.LinearFilter;
+              texture.generateMipmaps = true;
+              texture.needsUpdate = true;
+              console.log(`Back texture dimensions: ${texture.image.width}x${texture.image.height}`);
+              resolve(texture);
+            },
+            undefined,
+            reject
+          );
+        });
+
+        statusDiv.textContent = 'Textures loaded. Loading GLB model...';
+
+        // Load GLB model
+        const loader = new window.GLTFLoader();
+        const gltf = await new Promise((resolve, reject) => {
+          loader.load('./assets/hoodie.glb', resolve, undefined, reject);
+        });
+
+        model = gltf.scene.clone(); // Clone to avoid modifying original
+        statusDiv.textContent = 'Model loaded. Applying textures (matching website logic)...';
+
+        // Center and scale model like the website does
+        const box = new window.THREE.Box3().setFromObject(model);
+        const center = box.getCenter(new window.THREE.Vector3());
+        const size = box.getSize(new window.THREE.Vector3());
+
+        // Center the model
+        model.position.x = -center.x;
+        model.position.y = -center.y;
+        model.position.z = -center.z;
+
+        // Scale to fit if needed
+        const maxDimension = Math.max(size.x, size.y, size.z);
+        if (maxDimension > 3) {
+          const scale = 2 / maxDimension;
+          model.scale.set(scale, scale, scale);
+        }
+
+        // Apply textures using the exact same logic as the website
+        applyTexturesToModel(model, frontTexture, backTexture);
+
+        statusDiv.textContent = 'Textures applied. Exporting GLB with embedded textures...';
+
+        // Export with textures embedded
+        const exporter = new window.GLTFExporter();
+        exporter.parse(
+          model,
+          (result) => {
+            if (result instanceof ArrayBuffer) {
+              // Binary GLB format
+              const blob = new Blob([result], { type: 'model/gltf-binary' });
+              downloadBlob(blob, 'hoodie-with-textures.glb');
+              statusDiv.textContent = '✓ GLB export complete! File downloaded.\nThe textures are now embedded in the GLB file.';
+            } else {
+              // JSON GLTF format (fallback)
+              const blob = new Blob([JSON.stringify(result, null, 2)], { type: 'application/json' });
+              downloadBlob(blob, 'hoodie-with-textures.gltf');
+              statusDiv.textContent = '✓ GLTF export complete! (Note: textures may be external)';
+            }
+          },
+          (error) => {
+            statusDiv.textContent = 'Export error: ' + error.message;
+            console.error('Export error:', error);
+          },
+          { 
+            binary: true, 
+            embedImages: true,
+            onlyVisible: false,
+            includeCustomExtensions: true,
+            trs: false,
+            animations: []
+          }
+        );
+
+      } catch (error) {
+        statusDiv.textContent = 'Error: ' + error.message + '\nCheck console for details.';
+        console.error('Export error:', error);
+      }
+    }
+
+    function downloadBlob(blob, filename) {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>

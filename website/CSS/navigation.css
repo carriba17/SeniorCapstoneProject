@@ -92,6 +92,12 @@
   pointer-events: auto;
 }
 
+/* Top logo visible by default on non-landing pages (pages without loading class) */
+body:not(.loading) #top-logo {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 .logo-img-top {
   height: 50px;
   width: auto;
@@ -160,5 +166,19 @@
 
 #navbar a:hover {
   color: #fff;
+}
+
+/* Top Navigation - For non-landing pages */
+#navbar-left.top-nav {
+  top: 4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: none;
+}
+
+#navbar-left.top-nav .nav-left-menu {
+  flex-direction: row;
+  gap: 2.5rem;
+  transition: none;
 }
 
