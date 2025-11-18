@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="./CSS/animations.css" />
   <link rel="stylesheet" href="./CSS/responsive.css" />
   <link rel="stylesheet" href="./CSS/footer.css" />
+  <link rel="stylesheet" href="./CSS/loading.css" />
 </head>
 
 <body>
@@ -36,34 +37,42 @@
   <!-- Mint Page Content -->
   <section id="mint-section" style="min-height: 100vh; padding: 8rem 4rem 4rem; display: flex; align-items: center; justify-content: center;">
     <div style="max-width: 1200px; width: 100%;">
-      <div style="text-align: center; margin-bottom: 4rem;">
-        <h1 style="font-size: 4rem; font-weight: 800; color: #fff; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: -0.02em;">MINT YOUR NFT</h1>
-        <p style="font-size: 1.2rem; color: #cccccc; line-height: 1.7; max-width: 800px; margin: 0 auto;">Connect your Solana wallet to mint one of 30 unique digital shirt NFTs. Each NFT corresponds to a physical shirt with a specific colorway.</p>
-      </div>
-
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;">
         <!-- Mint Interface -->
-        <div style="background: rgba(30, 30, 30, 0.9); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 3rem; backdrop-filter: blur(10px);">
-          <h2 style="font-size: 2rem; font-weight: 700; color: #fff; margin-bottom: 2rem; text-transform: uppercase;">Connect Wallet</h2>
-          <p style="color: #cccccc; margin-bottom: 2rem; line-height: 1.6;">Connect your Solana wallet to begin the minting process. You'll be able to view available NFTs and mint your chosen design.</p>
-          <button style="width: 100%; padding: 1.5rem 2rem; background: rgba(214, 48, 49, 0.3); border: 1px solid rgba(214, 48, 49, 0.5); border-radius: 8px; color: #fff; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; text-transform: uppercase;">Connect Wallet</button>
+        <div>
+          <div style="background: rgba(30, 30, 30, 0.9); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 3rem; backdrop-filter: blur(10px); margin-bottom: 2rem;">
+            <h2 style="font-size: 2rem; font-weight: 700; color: #fff; margin-bottom: 2rem; text-transform: uppercase;">Connect Wallet</h2>
+            <p style="color: #cccccc; margin-bottom: 2rem; line-height: 1.6;">Connect your Solana wallet to begin the minting process. You'll be able to view available NFTs and mint your chosen design.</p>
+            <button id="connect-wallet" style="width: 100%; padding: 1.5rem 2rem; background: rgba(214, 48, 49, 0.3); border: 1px solid rgba(214, 48, 49, 0.5); border-radius: 8px; color: #fff; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; text-transform: uppercase;">Connect Wallet</button>
+          </div>
+          
+          <!-- Collection Info -->
+          <div style="background: rgba(30, 30, 30, 0.9); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 3rem; backdrop-filter: blur(10px);">
+            <h2 style="font-size: 2rem; font-weight: 700; color: #fff; margin-bottom: 2rem; text-transform: uppercase;">Collection Info</h2>
+            <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+              <div>
+                <div style="color: #aaaaaa; font-size: 0.9rem; margin-bottom: 0.5rem; text-transform: uppercase;">Total Supply</div>
+                <div style="color: #fff; font-size: 2rem; font-weight: 800;">30</div>
+              </div>
+              <div>
+                <div style="color: #aaaaaa; font-size: 0.9rem; margin-bottom: 0.5rem; text-transform: uppercase;">Minted</div>
+                <div style="color: #fff; font-size: 2rem; font-weight: 800;">0 / 30</div>
+              </div>
+              <div>
+                <div style="color: #aaaaaa; font-size: 0.9rem; margin-bottom: 0.5rem; text-transform: uppercase;">Price</div>
+                <div style="color: #fff; font-size: 2rem; font-weight: 800;">1 SOL</div>
+              </div>
+            </div>
+            <button id="mint-nft" style="width: 100%; padding: 1.5rem 2rem; background: rgba(214, 48, 49, 0.3); border: 1px solid rgba(214, 48, 49, 0.5); border-radius: 8px; color: #fff; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; text-transform: uppercase; margin-top: 2rem;" disabled>Mint NFT</button>
+          </div>
         </div>
 
-        <!-- NFT Info -->
-        <div style="background: rgba(30, 30, 30, 0.9); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 3rem; backdrop-filter: blur(10px);">
-          <h2 style="font-size: 2rem; font-weight: 700; color: #fff; margin-bottom: 2rem; text-transform: uppercase;">Collection Info</h2>
-          <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-            <div>
-              <div style="color: #aaaaaa; font-size: 0.9rem; margin-bottom: 0.5rem; text-transform: uppercase;">Total Supply</div>
-              <div style="color: #fff; font-size: 2rem; font-weight: 800;">30</div>
-            </div>
-            <div>
-              <div style="color: #aaaaaa; font-size: 0.9rem; margin-bottom: 0.5rem; text-transform: uppercase;">Minted</div>
-              <div style="color: #fff; font-size: 2rem; font-weight: 800;">0 / 30</div>
-            </div>
-            <div>
-              <div style="color: #aaaaaa; font-size: 0.9rem; margin-bottom: 0.5rem; text-transform: uppercase;">Price</div>
-              <div style="color: #fff; font-size: 2rem; font-weight: 800;">Free Mint</div>
+        <!-- 3D Hoodie Viewer -->
+        <div style="background: rgba(30, 30, 30, 0.9); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 3rem; backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; min-height: 600px;">
+          <div class="merch-card merch-card-3d transparent-bg" style="width: 100%; height: 100%;">
+            <div id="hoodie-3d-container-mint" style="width: 100%; height: 500px; position: relative;">
+              <canvas id="hoodie-3d-canvas-mint" style="width: 100%; height: 100%; display: block;"></canvas>
+              <div class="viewer-hint" style="position: absolute; bottom: 1rem; left: 50%; transform: translateX(-50%); color: rgba(255, 255, 255, 0.7); font-size: 0.9rem; pointer-events: none;">Swipe left/right to rotate</div>
             </div>
           </div>
         </div>
@@ -152,6 +161,28 @@
     </div>
   </footer>
 
+  <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js"></script>
+  <script src="https://unpkg.com/@solana/spl-token@latest/lib/index.iife.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+  <script type="module">
+    // Import GLTFLoader using import map
+    import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+    // Make it available globally
+    window.GLTFLoader = GLTFLoader;
+    // Signal that GLTFLoader is ready
+    window.GLTFLoaderReady = true;
+    console.log('GLTFLoader loaded and ready');
+  </script>
+  <script src="hoodie-3d-mint.js"></script>
+  <script src="mint-candy-machine.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

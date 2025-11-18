@@ -1,0 +1,22 @@
+{
+  "price": 1,
+  "number": 30,
+  "symbol": "CRCPSHRT",
+  "sellerFeeBasisPoints": 500,
+  "creators": [
+    {
+      "address": "YOUR_WALLET_ADDRESS_HERE",
+      "share": 100
+    }
+  ],
+  "isMutable": true,
+  "retainAuthority": true,
+  "uploadMethod": "bundlr",
+  "isSequential": true,
+  "ruleSet": null,
+  "awsConfig": null,
+  "nftStorageAuthToken": null,
+  "shdwStorageAccount": null,
+  "hiddenSettings": null,
+  "guards": null
+}

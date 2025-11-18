@@ -1,22 +1,25 @@
 {
-  "price": 0.1,
-  "number": 1,
-  "symbol": "SUNSOL",
+  "tokenStandard": "nft",
+  "price": 1.0,
+  "number": 30,
+  "symbol": "CRCPSHRT",
   "sellerFeeBasisPoints": 500,
+  "isMutable": true,
+  "isSequential": false,
   "creators": [
     {
-      "address": "2p6kE7UWscZ6FTF6ZnWfeSa7JRdKrDDPX3Aoc7F5rGmW",
+      "address": "8btsY3Lktzcy75PAXVGsLQobz9MxbJXPdoyHQj4HN7WJ",
       "share": 100
     }
   ],
-  "isMutable": true,
-  "retainAuthority": true,
   "uploadMethod": "bundlr",
-  "isSequential": true,
   "ruleSet": null,
   "awsConfig": null,
+  "sdriveApiKey": null,
   "nftStorageAuthToken": null,
   "shdwStorageAccount": null,
+  "pinataConfig": null,
   "hiddenSettings": null,
-  "guards": null
+  "guards": null,
+  "maxEditionSupply": null
 }

@@ -1,0 +1,33 @@
+{
+  "name": "Capstone Shirt #18",
+  "symbol": "CRCPSHRT",
+  "description": "A limited-edition Capstone NFT shirt.",
+  "seller_fee_basis_points": 500,
+  "image": "18.png",
+  "attributes": [
+    {
+      "trait_type": "Color",
+      "value": "Black"
+    },
+    {
+      "trait_type": "Size",
+      "value": "Medium"
+    }
+  ],
+  "properties": {
+    "files": [
+      {
+        "uri": "18.png",
+        "type": "image/png"
+      },
+      {
+        "uri": "hoodie.glb",
+        "type": "model/gltf-binary"
+      }
+    ],
+    "category": "image"
+  },
+  "extensions": {
+    "3d_model": "hoodie.glb"
+  }
+}

@@ -1,18 +1,258 @@
 {
   "program": {
-    "candyMachine": "",
+    "candyMachine": "GMvEvHuHQuZKnEgZNVJTPF3JexmjwbMzrUC7SKyj3MNL",
     "candyGuard": "",
-    "candyMachineCreator": "",
-    "collectionMint": ""
+    "candyMachineCreator": "ALubQDbfaGuUrTTQFgfz7GZVffKEesUypDigdDK56cDg",
+    "collectionMint": "95hHrnvZAXjhfT1NbjW6D7t4YXtbctUMXnTxM4gjqgFe"
   },
   "items": {
+    "-1": {
+      "name": "Capstone Shirt Collection",
+      "image_hash": "3fec5acf5fca575c6bdb3868b66d0cebd25abae4f2b6ff50cb0fad0dadb9a7c5",
+      "image_link": "https://gateway.irys.xyz/7ZqfpFn9dFkx7wrSRhswgR4irJFDiuc3WnJuBCwBBwQL?ext=png",
+      "metadata_hash": "cda57d85e350fe39ebf1b7fc54c30565531b3ac788ddd3b5e729bb2a0abea017",
+      "metadata_link": "https://gateway.irys.xyz/Bi3in9BhiaZiXz16FFQBGjDyvgo72vMYzc435BjTTCSg",
+      "onChain": true
+    },
     "0": {
       "name": "Capstone Shirt #1",
-      "image_hash": "5017ff090a8f46d82348060220bc73f4523d27b7c046f365f9c7502d34e1af3d",
-      "image_link": "https://gateway.irys.xyz/ANBUDD44r8d6VP7ZkDZgvq6MkmmVFzrYd2zdB66AtHPr?ext=png",
-      "metadata_hash": "f5658340113d3a95416f2b98b948b99541e02d0bb9d05443d973df714e0da411",
-      "metadata_link": "https:/suga/gateway.irys.xyz/8yxKZkf5SmdhxZJ34Kz63qVfwBv76crUMF2jSB9N8D1i",
-      "onChain": false
+      "image_hash": "3fec5acf5fca575c6bdb3868b66d0cebd25abae4f2b6ff50cb0fad0dadb9a7c5",
+      "image_link": "https://gateway.irys.xyz/2E9WMdqegpizFfUQemkxRgKHHUkqRU5k3YAD2PDfqUB1?ext=png",
+      "metadata_hash": "62eb270d589fed984f0eba31e6cf37a3c3e58bac1d5cc22c75bf473177b7c8b0",
+      "metadata_link": "https://gateway.irys.xyz/87cDpYftsNRJZyJuaNE8A9GpQ65KaQoE3iBqwm6kceCe",
+      "onChain": true
+    },
+    "1": {
+      "name": "Capstone Shirt #1",
+      "image_hash": "3fec5acf5fca575c6bdb3868b66d0cebd25abae4f2b6ff50cb0fad0dadb9a7c5",
+      "image_link": "https://gateway.irys.xyz/8RmD8EPGQ7JcpLiGSV6NJCkYesUAT2GxTv3o3nUht15F?ext=png",
+      "metadata_hash": "0e77f04a170bb7ec546e69ef00b8953c99344b318e76250cef76393f5a2d393d",
+      "metadata_link": "https://gateway.irys.xyz/AovrNTfjn3PctGJBfZNcysMJSMDuh4HW3w7ri46st7y3",
+      "onChain": true
+    },
+    "2": {
+      "name": "Capstone Shirt #2",
+      "image_hash": "3fec5acf5fca575c6bdb3868b66d0cebd25abae4f2b6ff50cb0fad0dadb9a7c5",
+      "image_link": "https://gateway.irys.xyz/5GanrSJDWD2qRVJDr5NX36sf19C92EcPbz6AFxPZUUKs?ext=png",
+      "metadata_hash": "b01d500624044755d844eccb23a34a7a3cc5d0a5496a0b9e33cf0bd75b7cfb0a",
+      "metadata_link": "https://gateway.irys.xyz/6fpdFqnRS5TB14rsbzR9Kbs5eHfwkDSnh4NtqwdPsRgp",
+      "onChain": true
+    },
+    "3": {
+      "name": "Capstone Shirt #3",
+      "image_hash": "3fec5acf5fca575c6bdb3868b66d0cebd25abae4f2b6ff50cb0fad0dadb9a7c5",
+      "image_link": "https://gateway.irys.xyz/GEQoRHZoWzcsvJRHJZnh46aXgdFcuFB76g27cwUAaZ8X?ext=png",
+      "metadata_hash": "8d619a44c79a7f600927063bca59c98cdbf2e0829c2df9e5f49e50a2016e6272",
+      "metadata_link": "https://gateway.irys.xyz/2xzmRUx53xxm6AwHdZqCMT3ufjJ4mHuRFBFxhNLeJWKs",
+      "onChain": true
+    },
+    "4": {
+      "name": "Capstone Shirt #4",
+      "image_hash": "3fec5acf5fca575c6bdb3868b66d0cebd25abae4f2b6ff50cb0fad0dadb9a7c5",
+      "image_link": "https://gateway.irys.xyz/3feh41FtumL56DBA7fEJ6uU5v61an3LwpTYuCr3Diu7d?ext=png",
+      "metadata_hash": "f73eeaebb0889fd26159bed1182c616f380072f817e725572a201691c8a175f3",
+      "metadata_link": "https://gateway.irys.xyz/38iAmsDNEH5Tg7rgKaZckR4Rtd1wg4WGKbnThhYKpiy7",
+      "onChain": true
+    },
+    "5": {
+      "name": "Capstone Shirt #5",
+      "image_hash": "3fec5acf5fca575c6bdb3868b66d0cebd25abae4f2b6ff50cb0fad0dadb9a7c5",
+      "image_link": "https://gateway.irys.xyz/DbHnGeXtPV9rJm4PazVo4Mod64rirK48A4Gziv4qQ37y?ext=png",
+      "metadata_hash": "9579990e5568e04ce92847a27b5821ba4dce12c94fac4658415e1c17a137665e",
+      "metadata_link": "https://gateway.irys.xyz/HDRXo9gSjhZcXXdqKEj9AB6YdecjoLDLZhbj6cGDwwcJ",
+      "onChain": true
+    },
+    "6": {
+      "name": "Capstone Shirt #6",
+      "image_hash": "3fec5acf5fca575c6bdb3868b66d0cebd25abae4f2b6ff50cb0fad0dadb9a7c5",
+      "image_link": "https://gateway.irys.xyz/94y7bQLR6N8wyAWHf6VQTbuhbCTtpu1EzHHtPbytTg44?ext=png",
+      "metadata_hash": "b8ae8485594bbc01cc96e3e0322637c4de366ec04a8a5d1b9633187a6d9fd5c5",
+      "metadata_link": "https://gateway.irys.xyz/BYrzYkHs5dxPkjsq6wSNC9XW26bWU94tCuaqQaaUVdN6",
+      "onChain": true
+    },
+    "7": {
+      "name": "Capstone Shirt #7",
+      "image_hash": "3fec5acf5fca575c6bdb3868b66d0cebd25abae4f2b6ff50cb0fad0dadb9a7c5",
+      "image_link": "https://gateway.irys.xyz/CuiPnm5YLT9M4iQ15RB2B5CahxuX6iUfqczUFfvgpUnV?ext=png",
+      "metadata_hash": "14fccc50da43cd3a0055b342254b49574e2a2388c85fb68290bd4c40e77c14d4",
+      "metadata_link": "https://gateway.irys.xyz/4S4TJEMVPrLnmWfSPVFntqzqBWLmWqMprM9QUN5X3d1B",
+      "onChain": true
+    },
+    "8": {
+      "name": "Capstone Shirt #8",
+      "image_hash": "3fec5acf5fca575c6bdb3868b66d0cebd25abae4f2b6ff50cb0fad0dadb9a7c5",
+      "image_link": "https://gateway.irys.xyz/54nJGouA7dzsXMB9DZ6JC2r4LYY7YV7oeMEFtxyVPdES?ext=png",
+      "metadata_hash": "90d85a09369cc5d9694788c7bdb6bad6a1469abde07593e019e7f9c0af8d5a9a",
+      "metadata_link": "https://gateway.irys.xyz/CEam3oH96afRJHxgFevdEPFQSWXi2AAUEsUgGhd9gGUF",
+      "onChain": true
+    },
+    "9": {
+      "name": "Capstone Shirt #9",
+      "image_hash": "3fec5acf5fca575c6bdb3868b66d0cebd25abae4f2b6ff50cb0fad0dadb9a7c5",
+      "image_link": "https://gateway.irys.xyz/9r3Shd1HBbbgtpmDdgRvScLqCbzRC4s6mfnmmEe3zKFH?ext=png",
+      "metadata_hash": "f0edaaf04b111bbaf45330e934dc6ffd2a4568d773f699a440443c4f4188b41c",
+      "metadata_link": "https://gateway.irys.xyz/CACphFrcSUttDTof8epLjfZkpFCzRVWokTJjRQEVfBfZ",
+      "onChain": true
+    },
+    "10": {
+      "name": "Capstone Shirt #10",
+      "image_hash": "3fec5acf5fca575c6bdb3868b66d0cebd25abae4f2b6ff50cb0fad0dadb9a7c5",
+      "image_link": "https://gateway.irys.xyz/6nowVNwYdxTfd928Na91mDV71qzhjC9N3YX9HyaKgBtJ?ext=png",
+      "metadata_hash": "2b3f24f2be81dcc8f4c42b77cc7b631418a050e013bdec6108d1586fd1175c6b",
+      "metadata_link": "https://gateway.irys.xyz/5ecJkYf52D999cP3PnHkdnGjEsnm16Pk6D8qcvWaW35g",
+      "onChain": true
+    },
+    "11": {
+      "name": "Capstone Shirt #11",
+      "image_hash": "3fec5acf5fca575c6bdb3868b66d0cebd25abae4f2b6ff50cb0fad0dadb9a7c5",
+      "image_link": "https://gateway.irys.xyz/BZWcKY1jpoDxbgoxYNMfCQFybNVHNUYaQrJCK86CsWrB?ext=png",
+      "metadata_hash": "de77922ed648b8548aaeb219027f14734819646c4b609bfce4c4b0aedbee43de",
+      "metadata_link": "https://gateway.irys.xyz/E4RN3QtN9foBTa17gRs5TF8BvnHsKTPfkA6uqrkEraqg",
+      "onChain": true
+    },
+    "12": {
+      "name": "Capstone Shirt #12",
+      "image_hash": "3fec5acf5fca575c6bdb3868b66d0cebd25abae4f2b6ff50cb0fad0dadb9a7c5",
+      "image_link": "https://gateway.irys.xyz/F44mX1FXz4oysUQ1M3CjAmYE3iKUfNffEXGh75rViWwy?ext=png",
+      "metadata_hash": "10801464ced43979c77ed0adee387c2ca6ffc85fb6115615bc42dd6808dca620",
+      "metadata_link": "https://gateway.irys.xyz/ExJWK36F98iUEPs61e5taEopJxGnq5X8zWxGiCXm7YjU",
+      "onChain": true
+    },
+    "13": {
+      "name": "Capstone Shirt #13",
+      "image_hash": "3fec5acf5fca575c6bdb3868b66d0cebd25abae4f2b6ff50cb0fad0dadb9a7c5",
+      "image_link": "https://gateway.irys.xyz/DP9T882BX5wrQ3wgS2C8NGUuNpaXDBV5Hsg3wb2Jy35c?ext=png",
+      "metadata_hash": "14e55458d3eaa222dd4c0fc63561397eae278c4a0ebd4a86ebd31a60ab9d2dc0",
+      "metadata_link": "https://gateway.irys.xyz/2Y1QR9hSAyhAH1mK4FwDpCYw4qhauJNc48kHmyBXks3L",
+      "onChain": true
+    },
+    "14": {
+      "name": "Capstone Shirt #14",
+      "image_hash": "3fec5acf5fca575c6bdb3868b66d0cebd25abae4f2b6ff50cb0fad0dadb9a7c5",
+      "image_link": "https://gateway.irys.xyz/7pXPP2K6SDKsjhawiLgNWZmusQBFQuevTsvTUySzbzRU?ext=png",
+      "metadata_hash": "e70347e16585b81984459bb99346bb74cd2b6a2691f09574cdfc99aa13fbe679",
+      "metadata_link": "https://gateway.irys.xyz/JDRqDAgMv8ChJuKVF3QESTUBpwR5BRF4SMS298qCs2Yc",
+      "onChain": true
+    },
+    "15": {
+      "name": "Capstone Shirt #15",
+      "image_hash": "3fec5acf5fca575c6bdb3868b66d0cebd25abae4f2b6ff50cb0fad0dadb9a7c5",
+      "image_link": "https://gateway.irys.xyz/67L7FPRKYKXWDHdPkMY1nfjcC1WyiNLDCndu9H7Cqji2?ext=png",
+      "metadata_hash": "c169fc23d34d95f788b7b0faa47f5488cc18a954d695bd7e7c32808078adb4dd",
+      "metadata_link": "https://gateway.irys.xyz/D9YiT5qoeuZFKRj6svdYPCcETvseadH4NAAxG5pDZtCb",
+      "onChain": true
+    },
+    "16": {
+      "name": "Capstone Shirt #16",
+      "image_hash": "3fec5acf5fca575c6bdb3868b66d0cebd25abae4f2b6ff50cb0fad0dadb9a7c5",
+      "image_link": "https://gateway.irys.xyz/2zRwKYBYAHtssUciLV87Meo6Hy54YGT4LaD91tK4WUyP?ext=png",
+      "metadata_hash": "d0c34b9e2f0d1387d7911b96b94c0c48d99af1cb972258bfc22b5560f3938598",
+      "metadata_link": "https://gateway.irys.xyz/4qc7HCvHLmygPVEG1fQJHbqNTb8UfujD87wSBzqZkU16",
+      "onChain": true
+    },
+    "17": {
+      "name": "Capstone Shirt #17",
+      "image_hash": "3fec5acf5fca575c6bdb3868b66d0cebd25abae4f2b6ff50cb0fad0dadb9a7c5",
+      "image_link": "https://gateway.irys.xyz/CAi6iuKjKcLb8Aqm1XUnZPfezrXU3Uc9Sb7mibPVgF3k?ext=png",
+      "metadata_hash": "45cebbae2219efd96e12407f8bc87d78d82f8b10e41118a1c575e2a10fcdb00b",
+      "metadata_link": "https://gateway.irys.xyz/99MFSXhL8qjFy1djsRNdZVAaqQFP8uwgGkKYCKywHhdw",
+      "onChain": true
+    },
+    "18": {
+      "name": "Capstone Shirt #18",
+      "image_hash": "3fec5acf5fca575c6bdb3868b66d0cebd25abae4f2b6ff50cb0fad0dadb9a7c5",
+      "image_link": "https://gateway.irys.xyz/GuvW2KuaoaGMugCnG6WBTmT2az3QYrYyrj4QCijDWPYr?ext=png",
+      "metadata_hash": "5a2196450ce3d9b98f081402e019545bf2a52b552a020afed90198b7103cae9c",
+      "metadata_link": "https://gateway.irys.xyz/6Ew1PxkX7Qe3zgTdem6zHUV8yt9mQDrKxjsnwrL9rwRW",
+      "onChain": true
+    },
+    "19": {
+      "name": "Capstone Shirt #19",
+      "image_hash": "3fec5acf5fca575c6bdb3868b66d0cebd25abae4f2b6ff50cb0fad0dadb9a7c5",
+      "image_link": "https://gateway.irys.xyz/5Z4TkQiYUaUygHpMkv9CpdH1FkhbJ8KizSqYck4JrCFy?ext=png",
+      "metadata_hash": "6055bcaee317ab4b137ad8840b1ab5c34a03116c4b64744367342286dc1ef4b0",
+      "metadata_link": "https://gateway.irys.xyz/Hwdp1LBdsWkgsYdsM3m1Ek7SGyM3hhWx8TVXL8pqEBoQ",
+      "onChain": true
+    },
+    "20": {
+      "name": "Capstone Shirt #20",
+      "image_hash": "3fec5acf5fca575c6bdb3868b66d0cebd25abae4f2b6ff50cb0fad0dadb9a7c5",
+      "image_link": "https://gateway.irys.xyz/JBcAu55fBWnbj6SQA26APkxcM1gbyzDPEkoUeRvUT7Xx?ext=png",
+      "metadata_hash": "10eacfcd4afd9359ed035b42ce0755de51c984c5684e3bbdb7bc8c436b46aede",
+      "metadata_link": "https://gateway.irys.xyz/FPHXrVuJP3xwmGRCiW4kiEu8hKS5u45TTLnC8pPvasp2",
+      "onChain": true
+    },
+    "21": {
+      "name": "Capstone Shirt #21",
+      "image_hash": "3fec5acf5fca575c6bdb3868b66d0cebd25abae4f2b6ff50cb0fad0dadb9a7c5",
+      "image_link": "https://gateway.irys.xyz/DihmeamsAqFHF4db5dmJ9hCWZD2sTP8Qc7rpFvNXvQAy?ext=png",
+      "metadata_hash": "d393becdc315c918919b4cdb8fb1c693b92f4136f2c3b206d844af07259083ed",
+      "metadata_link": "https://gateway.irys.xyz/7LcAbW9Q2hVrmeEf7G2Xppvy5LwZ122guYPACFJTcigy",
+      "onChain": true
+    },
+    "22": {
+      "name": "Capstone Shirt #22",
+      "image_hash": "3fec5acf5fca575c6bdb3868b66d0cebd25abae4f2b6ff50cb0fad0dadb9a7c5",
+      "image_link": "https://gateway.irys.xyz/Cx6tDeTYAP9VrxsQ31jVs7aWSFUjvx4GdB9KAj5zrRYG?ext=png",
+      "metadata_hash": "4c53005e8b0be26ec6cbee535722d6d0799312241d2e0f2eff6ed862bc5eb35a",
+      "metadata_link": "https://gateway.irys.xyz/7vuTcW8tZxwvXv2MjaQD8oyZ5zCohkJLUyKfWyq5QHD7",
+      "onChain": true
+    },
+    "23": {
+      "name": "Capstone Shirt #23",
+      "image_hash": "3fec5acf5fca575c6bdb3868b66d0cebd25abae4f2b6ff50cb0fad0dadb9a7c5",
+      "image_link": "https://gateway.irys.xyz/9MVmjueutoEj7tDiVDAis55NMmG379pLCRgE3mohzPVf?ext=png",
+      "metadata_hash": "f34adfdd2ed190d480f8e31174be8132311f62b0944e7d0f737ac07e4e4ec9c1",
+      "metadata_link": "https://gateway.irys.xyz/9kkAeM5BGyif9rYuLGa4EYpNBwP7SsBijutNwkvprkN4",
+      "onChain": true
+    },
+    "24": {
+      "name": "Capstone Shirt #24",
+      "image_hash": "3fec5acf5fca575c6bdb3868b66d0cebd25abae4f2b6ff50cb0fad0dadb9a7c5",
+      "image_link": "https://gateway.irys.xyz/FkzKWAzwBiJsvTWKhMCknitV1suHk8G1ixzB9N3WSinF?ext=png",
+      "metadata_hash": "0f95da447bc70648cb8edab82858a362839283fa22e3b6084b3ae677b8299351",
+      "metadata_link": "https://gateway.irys.xyz/6tTwThcYfrQpqr5hsn57ZybpJXKfH2iimBHP4QM9kK4V",
+      "onChain": true
+    },
+    "25": {
+      "name": "Capstone Shirt #25",
+      "image_hash": "3fec5acf5fca575c6bdb3868b66d0cebd25abae4f2b6ff50cb0fad0dadb9a7c5",
+      "image_link": "https://gateway.irys.xyz/9vSDTfHxE2Um8e3YeTWUKhDcjN6wa5vvCi2FPZhZwECG?ext=png",
+      "metadata_hash": "1298b54c8def68e8b33f3aa2888f018c6880d18413a6b07b527467acf89631b4",
+      "metadata_link": "https://gateway.irys.xyz/6whXi82c893Hcsqcg6S7ADLf6Ab7NTq4H89NZLGnq3qt",
+      "onChain": true
+    },
+    "26": {
+      "name": "Capstone Shirt #26",
+      "image_hash": "3fec5acf5fca575c6bdb3868b66d0cebd25abae4f2b6ff50cb0fad0dadb9a7c5",
+      "image_link": "https://gateway.irys.xyz/4nPboJhb2QFDyTBWi4XsNXtzB5PwCZ3PriZhsN91f9Yb?ext=png",
+      "metadata_hash": "327d1b65e76af84ca7f66aeb014250d01422645fc7b8caaa1d080be9d3b284f1",
+      "metadata_link": "https://gateway.irys.xyz/7aERUbVB8df8weCLp3c3yXNGR5br1wFCPYeSWfGqjdKa",
+      "onChain": true
+    },
+    "27": {
+      "name": "Capstone Shirt #27",
+      "image_hash": "3fec5acf5fca575c6bdb3868b66d0cebd25abae4f2b6ff50cb0fad0dadb9a7c5",
+      "image_link": "https://gateway.irys.xyz/BipK1rx424moxy6fpFBfKcE5dwrPo1Cqgbe77K1uhrgs?ext=png",
+      "metadata_hash": "0558f9209654703448defbe18910eba0fd303487093d4ee59ef1453f1e59403a",
+      "metadata_link": "https://gateway.irys.xyz/GMJdZLTrrSjiQqn87Jdf8A6888FdeGMaCnnMxpPU9w7v",
+      "onChain": true
+    },
+    "28": {
+      "name": "Capstone Shirt #28",
+      "image_hash": "3fec5acf5fca575c6bdb3868b66d0cebd25abae4f2b6ff50cb0fad0dadb9a7c5",
+      "image_link": "https://gateway.irys.xyz/5JDim87kFz3n2RaWx1QrsLFWVpkkwNDC1d9Q6PuZMS58?ext=png",
+      "metadata_hash": "c784736e4a7d47ae9f83f77618326879d5aeb2dbdfbdea8074dbed0dd414f435",
+      "metadata_link": "https://gateway.irys.xyz/2rtPS78RoifitY1PXKe2BGEoZDe9Sjk2h4GRZXfwPFBH",
+      "onChain": true
+    },
+    "29": {
+      "name": "Capstone Shirt #29",
+      "image_hash": "3fec5acf5fca575c6bdb3868b66d0cebd25abae4f2b6ff50cb0fad0dadb9a7c5",
+      "image_link": "https://gateway.irys.xyz/8VY1WZqsmbb2Y6b7zbmYuLTKbUdf1uojBxeLagJHaQ4t?ext=png",
+      "metadata_hash": "9a88d8c5c83c3007de732d44a5cc3b0eead99a058deb7f75d84c5b766df3428c",
+      "metadata_link": "https://gateway.irys.xyz/FPrW1giq1bxJoqiNjqsmhQ9zkfR5PAAW6gNDHoG2mj97",
+      "onChain": true
     }
   }
 }

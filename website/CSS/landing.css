@@ -174,7 +174,7 @@
 }
 
 .merch-card-3d:hover {
-  transform: translate(-50%, -50%) translateY(-10px);
+  transform: translateY(-10px);
 }
 
 .merch-card-1 {
@@ -205,9 +205,10 @@
 }
 
 .merch-card-3d {
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  position: relative;
+  left: auto;
+  top: auto;
+  transform: none;
   z-index: 3;
   width: 400px;
   height: 500px;
@@ -217,6 +218,7 @@
   justify-content: center;
   cursor: grab;
   will-change: transform;
+  margin: 0 auto;
 }
 
 .transparent-bg {
@@ -227,7 +229,7 @@
 }
 
 .transparent-bg:hover {
-  transform: translate(-50%, -50%) translateY(-10px);
+  transform: translateY(-10px);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4) !important;
   border: 1px solid rgba(255, 255, 255, 0.3) !important;
   background: rgba(50, 50, 50, 0.7) !important;

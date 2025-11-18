@@ -4,21 +4,34 @@
 const connectButton = document.getElementById("connect-wallet");
 const mintButton = document.getElementById("mint-nft");
 const exchangeButton = document.getElementById("exchange-nft");
-// const CANDY_MACHINE_ID = new web3.PublicKey("YOUR_CANDY_MACHINE_ID_HERE");
 
+// Candy Machine ID - Update this if you deploy to mainnet
+const CANDY_MACHINE_ID = "GMvEvHuHQuZKnEgZNVJTPF3JexmjwbMzrUC7SKyj3MNL";
+
+// Solana network - Change to 'mainnet-beta' for production
+const SOLANA_NETWORK = "devnet"; // or "mainnet-beta"
 
 let provider = null;
+let walletPublicKey = null;
 
 async function connectWallet() {
   if ("solana" in window) {
     try {
       const resp = await window.solana.connect();
-      console.log("Connected wallet:", resp.publicKey.toString());
+      walletPublicKey = resp.publicKey.toString();
+      console.log("Connected wallet:", walletPublicKey);
       provider = window.solana;
-      mintButton.disabled = false;
-      exchangeButton.disabled = false;
+      if (mintButton) mintButton.disabled = false;
+      if (exchangeButton) exchangeButton.disabled = false;
+      
+      // Update UI to show connected wallet
+      if (connectButton) {
+        connectButton.textContent = "Connected: " + walletPublicKey.slice(0, 4) + "..." + walletPublicKey.slice(-4);
+        connectButton.disabled = true;
+      }
     } catch (err) {
       console.error("Wallet connection failed", err);
+      alert("Failed to connect wallet: " + err.message);
     }
   } 
   else {
@@ -85,11 +98,103 @@ if (connectButton) {
   connectButton.addEventListener("click", connectWallet);
 }
 
-// Placeholder functions for mint/exchange
+// Mint NFT function using Candy Machine v3
+async function mintNFT() {
+  if (!provider || !walletPublicKey) {
+    alert("Please connect your wallet first!");
+    return;
+  }
+
+  if (!mintButton) return;
+
+  try {
+    mintButton.disabled = true;
+    mintButton.textContent = "Minting...";
+
+    // Create connection to Solana network
+    const connection = new web3.Connection(
+      web3.clusterApiUrl(SOLANA_NETWORK),
+      'confirmed'
+    );
+
+    const publicKey = new web3.PublicKey(walletPublicKey);
+    const candyMachinePubkey = new web3.PublicKey(CANDY_MACHINE_ID);
+
+    // Check if Candy Machine exists
+    const candyMachineAccount = await connection.getAccountInfo(candyMachinePubkey);
+    if (!candyMachineAccount) {
+      throw new Error("Candy Machine not found! Make sure you're on the correct network.");
+    }
+
+    // Get recent blockhash
+    const { blockhash, lastValidBlockHeight } = await connection.getLatestBlockhash();
+
+    // Create mint keypair for the new NFT
+    const mintKeypair = web3.Keypair.generate();
+    const mint = mintKeypair.publicKey;
+
+    // Get associated token account
+    const associatedTokenAccount = await splToken.getAssociatedTokenAddress(
+      mint,
+      publicKey
+    );
+
+    // Build transaction
+    const transaction = new web3.Transaction({
+      feePayer: publicKey,
+      blockhash: blockhash,
+      lastValidBlockHeight: lastValidBlockHeight
+    });
+
+    // Try to use mpl-candy-machine-core if available
+    if (typeof window.mintFromCandyMachine === 'function') {
+      try {
+        const result = await window.mintFromCandyMachine(provider, CANDY_MACHINE_ID, SOLANA_NETWORK);
+        alert("✅ Mint successful!\n\nMint Address: " + result.mint + "\nTransaction: " + result.signature + "\n\nView on Explorer:\n" + result.explorerUrl);
+        mintButton.disabled = false;
+        mintButton.textContent = "Mint NFT";
+        
+        // Update minted count if element exists
+        const mintedElement = document.querySelector('[style*="Minted"]')?.parentElement?.querySelector('div:last-child');
+        if (mintedElement) {
+          // This would need to fetch the actual count from the Candy Machine
+          console.log("Mint successful! Update the minted count display.");
+        }
+        
+        return;
+      } catch (err) {
+        console.error("Mint function error:", err);
+        // Show the error but don't fall through to the generic message
+        throw err;
+      }
+    }
+
+    // Fallback: Show instructions for setting up full minting
+    const explorerUrl = SOLANA_NETWORK === 'devnet' 
+      ? `https://explorer.solana.com/address/${CANDY_MACHINE_ID}?cluster=devnet`
+      : `https://explorer.solana.com/address/${CANDY_MACHINE_ID}`;
+    
+    alert("To enable full minting functionality:\n\n" +
+          "1. Add mpl-candy-machine-core library to mint.html\n" +
+          "2. Or use 'sugar mint' command in terminal\n\n" +
+          "Candy Machine ID: " + CANDY_MACHINE_ID + "\n" +
+          "View on Explorer: " + explorerUrl);
+
+    mintButton.disabled = false;
+    mintButton.textContent = "Mint NFT";
+  } catch (err) {
+    console.error("Minting failed:", err);
+    alert("Minting failed: " + err.message + "\n\nMake sure:\n- You're on the correct network\n- You have enough SOL\n- Candy Machine is deployed");
+    if (mintButton) {
+      mintButton.disabled = false;
+      mintButton.textContent = "Mint NFT";
+    }
+  }
+}
+
+// Mint button event listener
 if (mintButton) {
-  mintButton.addEventListener("click", () => {
-    alert("Minting not yet wired to Candy Machine. This is the next step.");
-  });
+  mintButton.addEventListener("click", mintNFT);
 }
 
 if (exchangeButton) {
@@ -150,4 +255,70 @@ document.addEventListener('touchend', (e) => {
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
   handleScroll();
+  
+  // Handle hoodie click to navigate to mint page
+  const hoodieWrapper = document.getElementById('hoodie-click-wrapper');
+  if (hoodieWrapper) {
+    let mouseDownX = 0;
+    let mouseDownY = 0;
+    let hasMoved = false;
+    
+    hoodieWrapper.addEventListener('mousedown', (e) => {
+      mouseDownX = e.clientX;
+      mouseDownY = e.clientY;
+      hasMoved = false;
+    });
+    
+    hoodieWrapper.addEventListener('mousemove', (e) => {
+      if (mouseDownX !== 0 || mouseDownY !== 0) {
+        const deltaX = Math.abs(e.clientX - mouseDownX);
+        const deltaY = Math.abs(e.clientY - mouseDownY);
+        // If mouse moved more than 5 pixels, consider it a drag
+        if (deltaX > 5 || deltaY > 5) {
+          hasMoved = true;
+        }
+      }
+    });
+    
+    hoodieWrapper.addEventListener('mouseup', (e) => {
+      if (!hasMoved && (mouseDownX !== 0 || mouseDownY !== 0)) {
+        // It was a click, not a drag - navigate to mint page
+        window.location.href = 'mint.html';
+      }
+      mouseDownX = 0;
+      mouseDownY = 0;
+      hasMoved = false;
+    });
+    
+    // Also handle touch events for mobile
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchMoved = false;
+    
+    hoodieWrapper.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      touchMoved = false;
+    });
+    
+    hoodieWrapper.addEventListener('touchmove', (e) => {
+      if (touchStartX !== 0 || touchStartY !== 0) {
+        const deltaX = Math.abs(e.touches[0].clientX - touchStartX);
+        const deltaY = Math.abs(e.touches[0].clientY - touchStartY);
+        if (deltaX > 5 || deltaY > 5) {
+          touchMoved = true;
+        }
+      }
+    });
+    
+    hoodieWrapper.addEventListener('touchend', (e) => {
+      if (!touchMoved && (touchStartX !== 0 || touchStartY !== 0)) {
+        // It was a tap, not a swipe - navigate to mint page
+        window.location.href = 'mint.html';
+      }
+      touchStartX = 0;
+      touchStartY = 0;
+      touchMoved = false;
+    });
+  }
 });

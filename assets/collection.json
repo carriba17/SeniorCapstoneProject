@@ -1,0 +1,16 @@
+{
+  "name": "Capstone Shirt Collection",
+  "description": "A limited-edition collection of 30 unique Capstone NFT shirts. Each NFT corresponds to a real physical shirt with a specific colorway. The core idea: digital ownership + physical redemption.",
+  "image": "collection.png",
+  "external_url": "https://yourwebsite.com",
+  "properties": {
+    "files": [
+      {
+        "uri": "collection.png",
+        "type": "image/png"
+      }
+    ],
+    "category": "image"
+  }
+}
+
