@@ -6,7 +6,10 @@
   "type": "module",
   "scripts": {
     "start": "node server.js",
-    "dev": "node --watch server.js"
+    "dev": "node --watch server.js",
+    "signing-service": "node signing-service.js",
+    "signing-service:dev": "node --watch signing-service.js",
+    "extract-mint-signer": "node extract-mint-signer.js"
   },
   "keywords": ["solana", "nft", "candy-machine", "metaplex"],
   "author": "Carter Arribas",

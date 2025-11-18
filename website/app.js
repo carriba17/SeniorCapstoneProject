@@ -368,21 +368,87 @@ async function mintNFT() {
           throw new Error('Transaction has no instructions');
         }
         
-        let signedTransaction;
-        try {
-          // Phantom might reject transactions that are already partially signed
-          // Make sure the transaction is completely unsigned
-          if (transaction.signatures && transaction.signatures.length > 0) {
-            console.warn('Transaction has existing signatures, clearing them...');
-            transaction.signatures = [];
+        // Check if transaction is already partially signed by backend
+        // We need to preserve the backend's signature and combine it with Phantom's
+        const backendSignatures = [];
+        if (transaction.signatures && transaction.signatures.length > 0) {
+          // Save backend signatures before sending to Phantom
+          for (const sig of transaction.signatures) {
+            if (sig.signature && sig.signature.length === 64) {
+              backendSignatures.push({
+                publicKey: sig.publicKey,
+                signature: sig.signature
+              });
+              console.log('Preserving backend signature for:', sig.publicKey.toString());
+            }
           }
           
+          if (backendSignatures.length > 0) {
+            console.log(`Transaction has ${backendSignatures.length} backend signature(s), will combine with Phantom signature`);
+            // Clear signatures array but keep the structure - Phantom will rebuild it
+            // We'll manually combine signatures after Phantom signs
+            transaction.signatures = [];
+          }
+        }
+        
+        let signedTransaction;
+        try {
           signedTransaction = await provider.signTransaction(transaction);
           console.log('Transaction signed successfully');
           
-          // DO NOT modify the transaction after signing - it will break signature verification
-          // Just log what we got from Phantom
-          console.log('Signed transaction details from Phantom:', {
+          // Combine backend signatures with Phantom's signature
+          if (backendSignatures.length > 0) {
+            console.log('Combining backend signatures with Phantom signature...');
+            
+            // Get Phantom's signature (should be for the fee payer)
+            const phantomSignatures = signedTransaction.signatures || [];
+            
+            // Create a combined signatures array
+            // The order matters: signers are ordered by their position in the transaction
+            const compiledMessage = signedTransaction.compileMessage();
+            const signerPubkeys = compiledMessage.accountKeys
+              .slice(0, compiledMessage.header.numRequiredSignatures)
+              .map(key => key.toString());
+            
+            console.log('Transaction signers (in order):', signerPubkeys);
+            
+            // Build combined signatures array
+            const combinedSignatures = [];
+            for (let i = 0; i < signerPubkeys.length; i++) {
+              const signerPubkey = signerPubkeys[i];
+              
+              // Check if this is a backend signature
+              const backendSig = backendSignatures.find(bs => bs.publicKey.toString() === signerPubkey);
+              if (backendSig) {
+                combinedSignatures.push({
+                  publicKey: backendSig.publicKey,
+                  signature: backendSig.signature
+                });
+                console.log(`Using backend signature for signer ${i}: ${signerPubkey}`);
+              } else {
+                // Check if Phantom signed this
+                const phantomSig = phantomSignatures.find(ps => ps.publicKey.toString() === signerPubkey);
+                if (phantomSig && phantomSig.signature) {
+                  combinedSignatures.push(phantomSig);
+                  console.log(`Using Phantom signature for signer ${i}: ${signerPubkey}`);
+                } else {
+                  // No signature for this signer - use null/empty
+                  combinedSignatures.push({
+                    publicKey: new solanaWeb3.PublicKey(signerPubkey),
+                    signature: null
+                  });
+                  console.warn(`No signature found for signer ${i}: ${signerPubkey}`);
+                }
+              }
+            }
+            
+            // Replace signatures in the transaction
+            signedTransaction.signatures = combinedSignatures;
+            console.log(`Combined ${combinedSignatures.length} signature(s)`);
+          }
+          
+          // Log what we have after combining
+          console.log('Signed transaction details after combining:', {
             feePayer: signedTransaction.feePayer?.toString(),
             signatures: signedTransaction.signatures?.length || 0,
             recentBlockhash: signedTransaction.recentBlockhash,

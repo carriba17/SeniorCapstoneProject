@@ -436,14 +436,21 @@ app.post('/api/mint', async (req, res) => {
     }
 
     // Sign the transaction with the mint signer keypair if it's a Keypair (not a PDA)
-    // This is necessary because Keypairs need real signatures, not empty ones
-    if (mintSignerKeypair) {
-      console.log('Signing transaction with mint signer keypair...');
+    // NOTE: If mintSignerKeypair is available, it means Metaplex generated a dynamic keypair
+    // for this specific mint. We should sign it locally since we have access to it.
+    // The signing service is for fixed keypairs that are stored separately.
+    
+    if (mintSignerKeypair && mintAddress) {
+      // We have the keypair directly from Metaplex - sign it locally
+      // This is a dynamically generated keypair for this specific mint
+      console.log('Signing transaction locally with mint signer keypair (dynamic keypair from Metaplex)...');
       transaction.partialSign(mintSignerKeypair);
       console.log('Transaction signed with mint signer keypair');
       console.log('Transaction now has', transaction.signatures.length, 'signature(s)');
+      console.log('Mint signer public key:', mintAddress.toString());
     } else {
       console.log('Mint signer is a PDA or not available - no backend signing needed');
+      console.log('PDAs are verified cryptographically by the program, not through signatures');
     }
     
     // NOTE: The transaction is now partially signed (with mint signer if it's a Keypair)
