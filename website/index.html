@@ -7,6 +7,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <link rel="icon" type="image/png" href="./assets/CaLogo2.png">
   <title>C.Art</title>
   <link rel="stylesheet" href="./CSS/base.css" />
   <link rel="stylesheet" href="./CSS/background.css" />
@@ -57,8 +58,6 @@
     <video id="background-video" autoplay muted loop playsinline preload="auto" webkit-playsinline>
       <source src="assets/background.mp4" type="video/mp4">
     </video>
-    <!-- Background GIF Overlay - Only covers landing page -->
-    <div id="background-gif-overlay"></div>
     <div class="landing-container-hoodie">
       <!-- 3D Interactive Hoodie Viewer - Transparent Background -->
       <div class="merch-card merch-card-3d transparent-bg" id="hoodie-click-wrapper" style="cursor: pointer; position: relative;">
@@ -242,6 +241,10 @@
   </footer>
 
   <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js"></script>
+  <script>
+    // Save Solana web3.js before MetaMask potentially overrides it
+    window.solanaWeb3 = web3;
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
   <script type="importmap">
     {

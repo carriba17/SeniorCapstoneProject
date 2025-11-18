@@ -4,6 +4,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <link rel="icon" type="image/png" href="./assets/CaLogo2.png">
   <title>Mint - C.Art</title>
   <link rel="stylesheet" href="./CSS/base.css" />
   <link rel="stylesheet" href="./CSS/background.css" />
@@ -161,9 +162,103 @@
     </div>
   </footer>
 
-  <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js"></script>
-  <script src="https://unpkg.com/@solana/spl-token@latest/lib/index.iife.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+  <!-- Load Solana web3.js using ESM to avoid MetaMask override -->
+  <script type="module">
+    // Import Solana web3.js as ESM module - this avoids MetaMask's web3 override
+    import * as solanaWeb3Module from 'https://cdn.jsdelivr.net/npm/@solana/web3.js@latest/lib/index.esm.js';
+    
+    // Save to window immediately before MetaMask can interfere
+    window.solanaWeb3 = solanaWeb3Module;
+    console.log("✓ Solana web3.js loaded via ESM");
+    console.log("Available exports:", Object.keys(solanaWeb3Module).filter(k => 
+      ['Connection', 'PublicKey', 'Keypair', 'SystemProgram', 'Transaction'].includes(k)
+    ));
+    
+    // Verify classes are available
+    if (solanaWeb3Module.Connection && solanaWeb3Module.PublicKey) {
+      console.log("✓ Connection and PublicKey classes found");
+    } else {
+      console.error("✗ Classes not found in ESM module");
+    }
+  </script>
+  <!-- Fallback: Try IIFE if ESM doesn't work (though MetaMask will likely override it) -->
+  <script>
+    // Wait a bit for ESM module to load, then check
+    setTimeout(() => {
+      if (!window.solanaWeb3 || !window.solanaWeb3.Connection) {
+        console.warn("ESM module didn't load, trying IIFE fallback...");
+        // Try to load IIFE version
+        const script = document.createElement('script');
+        script.src = 'https://cdn.jsdelivr.net/npm/@solana/web3.js@latest/lib/index.iife.min.js';
+        script.onload = function() {
+          // Check if web3 has Solana classes (before MetaMask overrides)
+          if (typeof web3 !== 'undefined' && web3.Connection) {
+            window.solanaWeb3 = web3;
+            console.log("✓ Solana web3.js loaded via IIFE fallback");
+          } else {
+            console.error("✗ IIFE version also failed - MetaMask may have overridden it");
+          }
+        };
+        document.head.appendChild(script);
+      }
+    }, 500);
+  </script>
+  <!-- Note: mpl-candy-machine-core doesn't work well in browsers -->
+  <!-- We'll build the mint instruction manually using web3.js -->
+  <script>
+    // Helper function to derive associated token address (using web3.js only)
+    // This avoids needing the spl-token library
+    // Wait for solanaWeb3 to be available (ESM modules load asynchronously)
+    function initSplTokenHelper() {
+      if (!window.solanaWeb3 || !window.solanaWeb3.PublicKey) {
+        // Not ready yet, try again in a bit
+        setTimeout(initSplTokenHelper, 100);
+        return;
+      }
+      
+      const PublicKey = window.solanaWeb3.PublicKey;
+      
+      window.solanaSplToken = {
+        // Derive associated token account address
+        getAssociatedTokenAddress: async function(mint, owner) {
+          const solanaWeb3 = window.solanaWeb3;
+          if (!solanaWeb3 || !solanaWeb3.PublicKey) {
+            throw new Error("Solana web3.js not loaded");
+          }
+          
+          const PublicKey = solanaWeb3.PublicKey;
+          const TOKEN_PROGRAM_ID = new PublicKey("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA");
+          const ASSOCIATED_TOKEN_PROGRAM_ID = new PublicKey("ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL");
+          
+          // Convert to PublicKey if needed
+          const mintPubkey = mint instanceof PublicKey ? mint : new PublicKey(mint);
+          const ownerPubkey = owner instanceof PublicKey ? owner : new PublicKey(owner);
+          
+          // Derive PDA for associated token account
+          const [associatedTokenAddress] = PublicKey.findProgramAddressSync(
+            [
+              ownerPubkey.toBuffer(),
+              TOKEN_PROGRAM_ID.toBuffer(),
+              mintPubkey.toBuffer()
+            ],
+            ASSOCIATED_TOKEN_PROGRAM_ID
+          );
+          
+          return associatedTokenAddress;
+        },
+        
+        // Token program IDs
+        TOKEN_PROGRAM_ID: new PublicKey("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"),
+        ASSOCIATED_TOKEN_PROGRAM_ID: new PublicKey("ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL")
+      };
+      
+      console.log("✓ spl-token helper functions initialized");
+    }
+    
+    // Start initialization
+    initSplTokenHelper();
+  </script>
+  <!-- Import map for Three.js ES modules -->
   <script type="importmap">
     {
       "imports": {
@@ -172,14 +267,21 @@
       }
     }
   </script>
+  <!-- Load Three.js and GLTFLoader as ES modules -->
   <script type="module">
-    // Import GLTFLoader using import map
+    // Import Three.js and make it available globally for legacy scripts
+    import * as THREE from 'three';
+    window.THREE = THREE;
+    console.log('✓ Three.js loaded via ES module');
+    
+    // Import GLTFLoader
     import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
     // Make it available globally
     window.GLTFLoader = GLTFLoader;
+    THREE.GLTFLoader = GLTFLoader;
     // Signal that GLTFLoader is ready
     window.GLTFLoaderReady = true;
-    console.log('GLTFLoader loaded and ready');
+    console.log('✓ GLTFLoader loaded and ready');
   </script>
   <script src="hoodie-3d-mint.js"></script>
   <script src="mint-candy-machine.js"></script>
