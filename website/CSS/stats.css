@@ -44,60 +44,54 @@
   margin: 0;
 }
 
-.stats-cards-container {
-  display: flex;
+.stats-description-secondary {
+  color: #e0e0e0;
+  opacity: 0.85;
+}
+
+.stats-logos-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(180px, 1fr));
   gap: 2rem;
-  justify-content: flex-end;
-  align-items: flex-start;
-  perspective: 1000px;
+  justify-items: center;
 }
 
-.stat-card {
-  background: rgba(30, 30, 30, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  padding: 2.5rem 2rem;
-  min-width: 200px;
-  transform: rotateY(-5deg) rotateX(2deg);
-  transition: transform 0.3s ease;
-  backdrop-filter: blur(10px);
+.brand-logo-card {
+  width: 100%;
+  max-width: 280px;
+  min-height: 180px;
+  padding: 2rem;
+  border-radius: 20px;
+  background: rgba(20, 20, 20, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  backdrop-filter: blur(12px);
 }
 
-.stat-card-1 {
-  transform: rotateY(-8deg) rotateX(3deg) translateY(0);
+.brand-logo-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
 }
 
-.stat-card-2 {
-  transform: rotateY(-4deg) rotateX(1deg) translateY(-10px);
+.brand-logo-card img {
+  max-width: 140px;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.5));
 }
 
-.stat-card-3 {
-  transform: rotateY(0deg) rotateX(-1deg) translateY(-20px);
-}
-
-.stat-card:hover {
-  transform: rotateY(0deg) rotateX(0deg) translateY(-5px) scale(1.05);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
-}
-
-.stat-card-label {
+.brand-logo-label {
   font-size: 0.9rem;
-  color: #aaaaaa;
-  margin-bottom: 1rem;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.stat-card-value {
-  font-size: 2.5rem;
-  font-weight: 800;
-  color: #fff;
-  line-height: 1.1;
-}
-
-.stat-value-small {
-  font-size: 1.2rem;
-  font-weight: 400;
+  color: #bbbbbb;
 }
 
 /* Stats section hyperlinks */

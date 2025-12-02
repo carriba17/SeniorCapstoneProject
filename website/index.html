@@ -30,11 +30,15 @@
 
   <!-- Loading Screen -->
   <div id="loading-screen">
-    <img id="loading-logo" src="assets/CaLogo2.png" alt="C.Art Logo">
-    <div class="loading-bar-container">
-      <div class="loading-bar"></div>
+    <video id="loading-animation" autoplay muted loop playsinline webkit-playsinline preload="auto">
+      <source src="assets/CartAnimation.8.mp4" type="video/mp4">
+    </video>
+    <div class="loading-content">
+      <div class="loading-bar-container">
+        <div class="loading-bar"></div>
+      </div>
+      <div class="loading-text">Loading...</div>
     </div>
-    <div class="loading-text">Loading...</div>
   </div>
 
   <!-- Navigation Bar - Left Side -->
@@ -55,7 +59,7 @@
   <!-- Landing Page - Just Hoodie -->
   <section id="landing-page">
     <!-- Background Video - Only covers landing page -->
-    <video id="background-video" autoplay muted loop playsinline preload="auto" webkit-playsinline>
+    <video id="background-video" autoplay muted loop playsinline webkit-playsinline preload="metadata" poster="">
       <source src="assets/background.mp4" type="video/mp4">
     </video>
     <div class="landing-container-hoodie">
@@ -73,27 +77,29 @@
   <section id="stats-section">
     <div class="stats-section-container">
       <div class="stats-text-content">
-        <h2 class="stats-headline">The Luxury Resale Market is Massive: NFTs Eliminate Fakes</h2>
-        <p class="stats-description">The U.S. luxury resale market is valued at 
-          <a href="https://finance.yahoo.com/news/u-luxury-resale-market-outlook-112600045.html" target="_blank" class="stats-link">$8.65 billion</a> 
-          and projected to reach <a href="https://finance.yahoo.com/news/u-luxury-resale-market-outlook-112600045.html" target="_blank" class="stats-link">
-            $13.04 billion by 2030</a>.
-             However, counterfeiting remains a critical challenge, costing brands billions and eroding consumer trust. 
-             Through blockchain-based NFTs, companies can create immutable digital certificates of authenticity, permanently 
-             eliminating fakes and revolutionizing how luxury goods are verified, traded, and owned.</p>
+        <h2 class="stats-headline">Resale Giants Already Demand Verifiable Authenticity</h2>
+        <p class="stats-description">Platforms and brands such as GOAT, Nike, eBay, and adidas thrive on trust. 
+          Their marketplaces move millions of high-value sneakers and apparel every year, yet counterfeit risk still eats into margins and damages community credibility.</p>
+        <p class="stats-description stats-description-secondary">NFT-backed apparel tags plug directly into the ecosystems 
+          these logos represent. Digital certificates are embedded within every garment, so buyers can prove authenticity instantly and 
+          brands can reward every legitimate resale.</p>
       </div>
-      <div class="stats-cards-container">
-        <div class="stat-card stat-card-1">
-          <div class="stat-card-label">Market Value</div>
-          <div class="stat-card-value">$8.65B</div>
+      <div class="stats-logos-grid" aria-label="Brands exploring authenticated resale">
+        <div class="brand-logo-card">
+          <img src="assets/GoatLogo.png" alt="GOAT logo">
+          <span class="brand-logo-label">GOAT</span>
         </div>
-        <div class="stat-card stat-card-2">
-          <div class="stat-card-label">Projected 2030</div>
-          <div class="stat-card-value">$13.04B</div>
+        <div class="brand-logo-card">
+          <img src="assets/StockXLogo.png" alt="Stock X logo">
+          <span class="brand-logo-label">Stock X</span>
         </div>
-        <div class="stat-card stat-card-3">
-          <div class="stat-card-label">Online Market Share</div>
-          <div class="stat-card-value">85%</div>
+        <div class="brand-logo-card">
+          <img src="assets/EbayLogoPng.png" alt="eBay logo">
+          <span class="brand-logo-label">eBay</span>
+        </div>
+        <div class="brand-logo-card">
+          <img src="assets/AdidasLogo.png" alt="Adidas logo">
+          <span class="brand-logo-label">Adidas</span>
         </div>
       </div>
     </div>
@@ -116,27 +122,26 @@
               </div>
             </div>
           </div>
-
-          <!-- Panel 02: Smart Contract & Minting -->
+          <!-- Panel 02: Burn-to-Redeem -->
           <div class="vision-panel vision-panel-2">
             <div class="vision-number">02</div>
-            <h3 class="vision-title">SMART CONTRACT & MINTING</h3>
-            <div class="vision-overlay">
-              <div class="vision-content">
-                <h4>Smart Contract & Minting Setup</h4>
-                <p>Minting system using Solana, Candy Machine, and custom metadata. Each NFT contains artwork, shirt color, attributes, and burn-to-redeem instructions. The smart contract ensures once burned, it cannot be reused.</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Panel 03: Burn-to-Redeem -->
-          <div class="vision-panel vision-panel-3">
-            <div class="vision-number">03</div>
             <h3 class="vision-title">BURN-TO-REDEEM</h3>
             <div class="vision-overlay">
               <div class="vision-content">
                 <h4>Burn-to-Redeem Mechanism</h4>
                 <p>After minting, holders can burn their NFT on the website. Burning triggers a form for shipping information, a database entry of the redeemed shirt, and removal of the NFT from supply. This makes redemption trustless, verifiable, and final.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel 03: Smart Contract & Minting -->
+          <div class="vision-panel vision-panel-3">
+            <div class="vision-number">03</div>
+            <h3 class="vision-title">SMART CONTRACT & MINTING</h3>
+            <div class="vision-overlay">
+              <div class="vision-content">
+                <h4>Smart Contract & Minting Setup</h4>
+                <p>Minting system using Solana, Candy Machine, and custom metadata. Each NFT contains artwork, shirt color, attributes, and burn-to-redeem instructions. The smart contract ensures once burned, it cannot be reused.</p>
               </div>
             </div>
           </div>

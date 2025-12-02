@@ -12,26 +12,28 @@
   z-index: -2;
   opacity: 0.9;
   
-  /* Maximum video quality settings */
-  image-rendering: -webkit-optimize-contrast;
-  image-rendering: crisp-edges;
+  /* Performance optimizations for smoother playback */
   transform: translateZ(0);
-  will-change: transform;
+  will-change: auto; /* Changed from transform to auto for better performance */
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  /* Force hardware acceleration for better quality */
+  /* Force hardware acceleration */
   -webkit-transform: translateZ(0);
   -moz-transform: translateZ(0);
   -ms-transform: translateZ(0);
   -o-transform: translateZ(0);
-  /* Better rendering quality */
+  /* Optimize rendering */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* Prevent pixelation */
+  /* Use GPU acceleration */
+  -webkit-perspective: 1000;
+  -webkit-transform-style: preserve-3d;
+  /* Reduce repaints */
+  contain: layout style paint;
+  /* Optimize video playback */
   image-rendering: auto;
-  -ms-interpolation-mode: bicubic;
-  /* Optimize for quality over performance */
-  filter: contrast(1.05) brightness(1.02);
+  /* Remove heavy filters that can cause lag */
+  /* filter: contrast(1.05) brightness(1.02); */
 }
 
 

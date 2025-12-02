@@ -21,9 +21,9 @@
     gap: 4rem;
   }
 
-  .stats-cards-container {
-    justify-content: center;
-    flex-wrap: wrap;
+  .stats-logos-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
   }
 
   .stats-headline {
@@ -123,19 +123,12 @@
     font-size: 1rem;
   }
 
-  .stats-cards-container {
-    flex-direction: column;
-    align-items: center;
+  .stats-logos-grid {
+    grid-template-columns: 1fr;
   }
 
-  .stat-card {
-    width: 100%;
-    max-width: 300px;
-    transform: none !important;
-  }
-
-  .stat-card:hover {
-    transform: translateY(-5px) scale(1.02) !important;
+  .brand-logo-card {
+    max-width: 320px;
   }
 
   #explanation-section {

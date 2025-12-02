@@ -4,6 +4,7 @@
 let loadingProgress = {
   images: false,
   video: false,
+  loadingAnimation: false,
   threejs: false,
   gltfLoader: false,
   hoodieModel: false,
@@ -12,15 +13,83 @@ let loadingProgress = {
 
 let loadingScreen = null;
 let loadingBar = null;
+let loadingStartTime = null;
+const MIN_LOADING_TIME = 6000; // 6 seconds minimum
 
 // Initialize loading screen
 function initLoadingScreen() {
+  loadingStartTime = Date.now();
   loadingScreen = document.getElementById('loading-screen');
   loadingBar = document.querySelector('.loading-bar');
   
   if (!loadingScreen) {
     console.warn('Loading screen not found');
     return;
+  }
+  
+  // Try to play the loading animation video
+  const animationVideo = document.getElementById('loading-animation');
+  if (animationVideo) {
+    console.log('Loading animation video element found');
+    
+    // Set video properties to ensure it plays
+    animationVideo.muted = true;
+    animationVideo.loop = true;
+    animationVideo.playsInline = true;
+    animationVideo.setAttribute('playsinline', '');
+    animationVideo.setAttribute('webkit-playsinline', '');
+    
+    // Ensure video stays in DOM and doesn't get removed
+    animationVideo.setAttribute('data-keep-in-dom', 'true');
+    
+    // Try to play immediately
+    const playPromise = animationVideo.play();
+    if (playPromise !== undefined) {
+      playPromise.then(() => {
+        console.log('Loading animation video started playing');
+      }).catch(error => {
+        console.warn('Auto-play prevented initially:', error);
+        // Video will play once metadata loads
+      });
+    }
+    
+    // Listen for metadata to try playing again
+    animationVideo.addEventListener('loadedmetadata', () => {
+      console.log('Loading animation metadata loaded, attempting to play');
+      animationVideo.play().then(() => {
+        console.log('Loading animation video playing after metadata load');
+      }).catch(err => {
+        console.warn('Video play failed after metadata:', err);
+      });
+    }, { once: true });
+    
+    animationVideo.addEventListener('loadeddata', () => {
+      console.log('Loading animation data loaded, attempting to play');
+      if (animationVideo.paused) {
+        animationVideo.play().then(() => {
+          console.log('Loading animation video playing after data load');
+        }).catch(err => {
+          console.warn('Video play failed after data load:', err);
+        });
+      }
+    }, { once: true });
+    
+    animationVideo.addEventListener('playing', () => {
+      console.log('Loading animation video is now playing');
+    }, { once: true });
+    
+    animationVideo.addEventListener('error', (e) => {
+      const error = animationVideo.error;
+      if (error) {
+        console.error('Loading animation video error code:', error.code);
+        console.error('Loading animation video error message:', error.message);
+        if (error.code === 4) {
+          console.error('MEDIA_ERR_SRC_NOT_SUPPORTED: The .mov format may not be supported by this browser. Consider converting to .mp4 for better compatibility.');
+        }
+      }
+    });
+  } else {
+    console.warn('Loading animation video element not found');
   }
   
   // Start checking for loaded resources
@@ -34,6 +103,9 @@ function checkResources() {
   
   // Check video
   checkVideo();
+  
+  // Check loading animation video
+  checkLoadingAnimation();
   
   // Check Three.js
   checkThreeJS();
@@ -105,6 +177,95 @@ function checkVideo() {
   }
 }
 
+// Check if loading animation video is loaded
+function checkLoadingAnimation() {
+  const animationVideo = document.getElementById('loading-animation');
+  if (!animationVideo) {
+    loadingProgress.loadingAnimation = true;
+    return;
+  }
+  
+  // Don't mark as loaded until video is actually playing
+  // This ensures the video stays visible during loading
+  if (animationVideo.readyState >= 2 && !animationVideo.paused && animationVideo.currentTime > 0) {
+    // Video is loaded and playing
+    loadingProgress.loadingAnimation = true;
+  } else if (animationVideo.readyState >= 2) {
+    // Video is loaded but not playing yet - try to play it
+    const playPromise = animationVideo.play();
+    if (playPromise !== undefined) {
+      playPromise.then(() => {
+        // Video started playing successfully
+        loadingProgress.loadingAnimation = true;
+        checkResources();
+      }).catch(err => {
+        console.warn('Could not play loading animation:', err);
+        // Still mark as loaded so loading can continue even if video doesn't play
+        // (in case of browser compatibility issues)
+        loadingProgress.loadingAnimation = true;
+        checkResources();
+      });
+    }
+  } else {
+    // Wait for video to be ready
+    const handleCanPlay = () => {
+      // Try to play if paused
+      if (animationVideo.paused) {
+        const playPromise = animationVideo.play();
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            loadingProgress.loadingAnimation = true;
+            checkResources();
+          }).catch(err => {
+            console.warn('Could not play loading animation after canplay:', err);
+            loadingProgress.loadingAnimation = true;
+            checkResources();
+          });
+        } else {
+          loadingProgress.loadingAnimation = true;
+          checkResources();
+        }
+      } else {
+        loadingProgress.loadingAnimation = true;
+        checkResources();
+      }
+    };
+    
+    // Only add listeners if not already added
+    if (!animationVideo.hasAttribute('data-listeners-added')) {
+      animationVideo.setAttribute('data-listeners-added', 'true');
+      animationVideo.addEventListener('canplay', handleCanPlay, { once: true });
+      animationVideo.addEventListener('canplaythrough', handleCanPlay, { once: true });
+      animationVideo.addEventListener('loadeddata', () => {
+        // Video has loaded enough data, try to play
+        animationVideo.play().catch(err => {
+          console.warn('Could not play loading animation after loadeddata:', err);
+        });
+      }, { once: true });
+      
+      animationVideo.addEventListener('playing', () => {
+        // Video is now playing
+        loadingProgress.loadingAnimation = true;
+        checkResources();
+      }, { once: true });
+      
+      animationVideo.addEventListener('error', (e) => {
+        // Animation video failed, log error but continue anyway
+        const error = animationVideo.error;
+        if (error) {
+          console.warn('Loading animation video error code:', error.code, error.message);
+          if (error.code === 4) {
+            console.warn('Video format may not be supported. Consider converting .mov to .mp4 for better browser compatibility.');
+          }
+        }
+        // Mark as loaded so loading can continue even without video
+        loadingProgress.loadingAnimation = true;
+        checkResources();
+      }, { once: true });
+    }
+  }
+}
+
 // Check if Three.js is loaded
 function checkThreeJS() {
   if (typeof THREE !== 'undefined') {
@@ -139,18 +300,32 @@ function isEverythingLoaded() {
 function hideLoadingScreen() {
   if (!loadingScreen) return;
   
-  // Add a small delay for smooth transition
+  // Calculate how long we've been loading
+  const elapsedTime = loadingStartTime ? Date.now() - loadingStartTime : 0;
+  const remainingTime = Math.max(0, MIN_LOADING_TIME - elapsedTime);
+  
+  // Wait for minimum loading time (4 seconds) before hiding
   setTimeout(() => {
-    loadingScreen.classList.add('hidden');
-    document.body.classList.remove('loading');
+    // Stop the loading animation video before hiding
+    const animationVideo = document.getElementById('loading-animation');
+    if (animationVideo) {
+      animationVideo.pause();
+      animationVideo.currentTime = 0;
+    }
     
-    // Remove loading screen from DOM after animation
+    // Add a small delay for smooth transition
     setTimeout(() => {
-      if (loadingScreen && loadingScreen.parentNode) {
-        loadingScreen.parentNode.removeChild(loadingScreen);
-      }
-    }, 500);
-  }, 500); // Small delay to ensure everything is truly ready
+      loadingScreen.classList.add('hidden');
+      document.body.classList.remove('loading');
+      
+      // Remove loading screen from DOM after animation
+      setTimeout(() => {
+        if (loadingScreen && loadingScreen.parentNode) {
+          loadingScreen.parentNode.removeChild(loadingScreen);
+        }
+      }, 500);
+    }, 500); // Small delay to ensure everything is truly ready
+  }, remainingTime);
 }
 
 // Listen for custom events from hoodie-3d.js
